@@ -3,6 +3,18 @@
 Voltage Controlled Oscillators (VCOs) convert a control voltage into an output frequency and are ubiquitous in modern electronic systems. Typical applications include frequency synthesis in Phase-Locked Loops (PLLs), RF transceivers, clock generation and recovery, time-to-digital conversion, and sensor interfaces. As integration scales and performance targets tighten, designers must carefully trade off phase noise, tuning range, power, and silicon area.
 
 \section{Objectives and Scope}
+\section{Overview per Assignment Rubric}
+This work addresses the required items as follows:
+\begin{itemize}
+  \item \textbf{Circuit function}: Convert control voltage to frequency (VCO) for frequency synthesis and clocking.
+  \item \textbf{Applications}: Integer-/fractional-$N$ PLLs, RF transceivers (LO), CDR, ADC/DAC clocks, time sensing.
+  \item \textbf{Key performance}: tuning range, $K_{VCO}$, phase noise/jitter, power, area, supply sensitivity.
+  \item \textbf{Theory}: Barkhausen, LC tank with negative resistance, delay-based oscillation, Leeson/ISF/PPV.
+  \item \textbf{Modeling/analysis}: $f_0=1/(2\pi\sqrt{LC})$, startup $|R_n|>R_p$, $f\approx 1/(2Nt_p)$, PN $\leftrightarrow$ jitter conversion.
+  \item \textbf{Simulation}: PSS/Pnoise, transient noise; tuning curve, PN mask, jitter histogram, supply sensitivity.
+  \item \textbf{Theory vs simulation}: Comparison in Ch.~9/10 with explanations (parasitics, setup choices).
+\end{itemize}
+
 This report aims to provide a practical yet rigorous overview to design, analyze, and integrate VCOs. The scope covers fundamentals of oscillation, architectural choices (ring versus LC), phase-noise modeling, design procedures, PLL integration, measurement methodology, and a case study. The focus is on CMOS-integrated designs while keeping the discussion general enough to apply to other technologies.
 
 \section{Contributions}

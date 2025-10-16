@@ -1,0 +1,25 @@
+\chapter{Meta-Heuristic Optimization (Optional)}
+\section{Problem Statement}
+We seek $L$, varactor span, coarse/fine segmentation, and bias to minimize a multi-objective cost combining phase noise at offsets, power, and tuning coverage, subject to constraints on $K_{VCO}$ and range.
+
+\section{Cost Function}
+Let $J = w_1\,J_{PN} + w_2\,J_{P} + w_3\,J_{range} + w_4\,J_{K}$, with
+\begin{itemize}
+  \item $J_{PN}$: weighted PN deviations at 10 k/100 k/1 MHz vs targets,
+  \item $J_P$: power penalty beyond limit,
+  \item $J_{range}$: penalty if range $<\,$target,
+  \item $J_{K}$: penalty if $K_{VCO}$ out of [1, 3] MHz/V.
+\end{itemize}
+Weights $w_i$ follow Chapter~7.
+
+\section{Search (GA/PSO Outline)}
+\begin{enumerate}
+  \item Initialize population (or swarm) over $L$, $C_{min/max}$, coarse/fine bits, bias.
+  \item Evaluate surrogate: analytical LC tank, Leeson-like PN with $Q$ and device factors, PVT multipliers.
+  \item Select/update (GA crossover/mutation or PSO velocity/position) to reduce $J$.
+  \item Re-evaluate; iterate until convergence or budget exhausted.
+  \item Verify best candidates with detailed PSS/Pnoise and transient-noise simulations.
+\end{enumerate}
+
+\section{Deliverables}
+Provide Python (GA/PSO) and Ocean scripts (optional) to reproduce evaluations and export CSV tables for Chapter~9/10 figures. Comment code for clarity.

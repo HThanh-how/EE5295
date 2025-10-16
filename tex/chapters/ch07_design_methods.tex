@@ -1,5 +1,6 @@
 \chapter{Design Methodology}
-Define specs; select architecture; perform small-signal and large-signal simulations; run PSS/Pnoise or time-domain jitter; tune \(K_{VCO}\); linearize tuning; validate across PVT; finalize layout.
+{\sloppy
+Define specs; select architecture; perform small-signal and large-signal simulations; run PSS/Pnoise or time-domain jitter; tune \(K_{VCO}\); linearize tuning; validate across PVT; finalize layout.\par}
 
 \section{Meta-Heuristic Optimization (Bonus)}
 Apply a simple GA/PSO to choose \(L\), varactor bank size, and bias to minimize a cost combining PN@offsets, power, and tuning coverage. The flow evaluates a fast surrogate (analytical + corner multipliers) and verifies finalists with detailed simulations. Convergence typically occurs in tens of iterations; constraints enforce KVCO and range.
