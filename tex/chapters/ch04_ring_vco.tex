@@ -6,18 +6,89 @@ f_{osc} \approx \frac{1}{2 N t_{p}(I_{bias}, V_{ctrl})}
 \]
 where \(t_p\) is the per-stage propagation delay controlled by bias current/voltage.
 
-\section{Delay Model and \(K_{VCO}\)}
-With current control \(I_{ctrl}\), one has \(t_p \propto C_L V_{swing}/I_{ctrl}\), hence
+\section{Delay Model and \(K\_{VCO}}\)
+With current control \(I_{ctrl}\), one has
 \[
-f_{osc}(I_{ctrl}) \approx \frac{I_{ctrl}}{2 N C_L V_{swing}}\,,\quad K_{VCO} = \frac{\partial f}{\partial V_{ctrl}} = \frac{\partial f}{\partial I_{ctrl}}\frac{\partial I_{ctrl}}{\partial V_{ctrl}}
+t_p \propto \frac{C_L\,V_{swing}}{I_{ctrl}}
 \]
-Design chooses \(K_{VCO}\) large enough for acquisition margin but not excessively sensitive to noise.
+thus
+\[
+f_{osc}(I_{ctrl}) \approx \frac{I_{ctrl}}{2 N C_L V_{swing}}\,,\quad K_{VCO} = \frac{\partial f}{\partial V_{ctrl}} = \frac{\partial f}{\partial I_{ctrl}}\,\frac{\partial I_{ctrl}}{\partial V_{ctrl}}
+\]
+Design chooses \(K_{VCO}\) large enough for acquisition margin but not excessively sensitive to noise. For a transconductor that maps \(V_{ctrl}\) to current, e.g., \(I_{ctrl} = g_m (V_{ctrl}-V_T)\) within range, one gets \(K_{VCO} \approx \tfrac{g_m}{2 N C_L V_{swing}}\).
+
+\section{Current-Starved Inverter Topology}
+The current-starved inverter limits the charge/discharge current via a bias device, making delay tunable by bias.
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[scale=1]
+    \node[draw, minimum width=3.2cm, minimum height=1cm] (stage) at (0,0) {Current-starved INV};
+    \node[right=1.2cm of stage] (dots) {$\cdots$};
+    \node[draw, minimum width=3.2cm, minimum height=1cm, right=2.4cm of dots] (stageN) {Stage $N$};
+    \draw[-Latex] (stage) -- (dots);
+    \draw[-Latex] (dots) -- (stageN);
+    \draw[-Latex] (stageN.north) to[out=45,in=135] ++(1.2,0) to[out=-45,in=45] (stageN.south);
+  \end{tikzpicture}
+  \caption{Conceptual chain of current-starved inverters}
+\end{figure}
+
+\section{Small-Signal Start-Up and Amplitude Regulation}
+The loop must have net gain $>1$ at startup; as the swing grows, device nonlinearity (effective resistance increase) reduces loop gain to unity. Slew-limited edges and saturation define \(V_{swing}\) and impact \(t_p\).
+
+\section{Phase Noise and Jitter}
+Ring VCOs lack a high-\(Q\) tank, so phase noise is typically worse than LC. A rough guideline relates time uncertainty per stage \(\sigma_{t,stg}\) to output jitter:
+\[
+ \sigma_{t,\,out} \approx \sqrt{N}\,\sigma_{t,stg}
+\]
+Mitigations: increase bias (faster edges), optimize device sizes, isolate supplies, differential routing, and multiphase averaging. Injection locking can further clean phase noise around the carrier at the cost of lock range.
+
+\subsection*{Injection Locking (Adler's Equation)}
+With a periodic injection at frequency \(\omega_{inj}\) near \(\omega_0\), the phase dynamics follow Adler's equation \cite{adler1946}:
+\[
+ \frac{d\phi}{dt} = \Delta\omega - \Delta\omega_L \sin\phi
+\]
+where \(\Delta\omega = \omega_0 - \omega_{inj}\) and \(\Delta\omega_L\) is the lock range, proportional to injection strength and inversely to oscillator amplitude. Within lock, the oscillator inherits the injector's spectral purity near the carrier, reducing close-in phase noise.
 
 \section{Linearizing \(f\)–\(V_{ctrl}\)}
-Techniques include: (i) reference current linear in \(V_{ctrl}\); (ii) cascoding to stabilize swing; (iii) multi-segment digital calibration.
+Techniques include: (i) bias shapers to linearize \(I_{ctrl}(V_{ctrl})\); (ii) cascoding to stabilize swing; (iii) segmented digital calibration to correct residual curvature; (iv) temperature compensation in the bias reference.
 
-\section{Noise and Jitter}
-Without a high-\(Q\) tank, ring VCOs generally exhibit worse phase noise than LC VCOs. Noise can be mitigated by higher bias current, device sizing optimization, and careful supply isolation \cite{razavi_rf}.
+\section{Numerical Design Example}
+Target \(f_{osc}=\SI{500}{\mega\hertz}\) with \(N=5\), \(V_{swing}=\SI{0.6}{V}\), and \(C_L=\SI{15}{fF}\). To set midrange frequency:
+\[
+ I_{ctrl,mid} \approx 2 N C_L V_{swing} f_{osc} = 2\cdot 5\cdot 15\times10^{-15}\cdot 0.6\cdot 5\times10^{8} \approx \SI{45}{\micro A}
+\]
+If \(g_m=\SI{200}{\micro A/V}\), then \(K_{VCO}\approx \tfrac{g_m}{2 N C_L V_{swing}} \approx \SI{2.2}{\mega Hz/V}\). Choose bias range such that coarse/fine calibration covers PVT drift.
+
+\subsection*{Stage Sizing Trade-offs}
+Larger devices reduce thermal noise but increase load \(C_L\) and power. There is an optimum where the product of edge rate and noise spectral density minimizes jitter. Simulate a sweep of widths and extract RMS jitter to locate the optimum.
+
+\section{Supply and Substrate Noise}
+Use local LDO/filters, guard rings, triple-well isolation, star-grounding, and symmetric routing. Keep switched banks away from high-impedance nodes to reduce AM-to-PM conversion.
+
+\section{Design Targets and Checklist}
+\begin{table}[H]
+  \centering
+  \begin{tabular}{lll}
+    \toprule
+    Item & Target & Note \\
+    \midrule
+    $f$ range & $\pm 30\%$ & includes PVT margin \\
+    $K_{VCO}$ & $1$–$5$ MHz/V & linear around mid-range \\
+    PN@100 kHz & $< -95$ dBc/Hz & bias/isolation dependent \\
+    Power & $< 3$ mW & at $V_{DD}$ specified \\
+    Startup & $\times 2$–$3$ & across corners \\
+    \bottomrule
+  \end{tabular}
+  \caption{Example design targets for a ring VCO}
+\end{table}
+
+\begin{itemize}
+  \item Ensure startup margin across TT/SS/FF, $\pm10\%\,V_{DD}$, $-40$ to $125^\circ$C.
+  \item Verify monotonic tuning; add background calibration hooks.
+  \item Simulate time-domain jitter and supply sensitivity (PSRR).
+  \item Layout symmetry, short return paths, and decoupling close to bias nodes.
+  \item Consider injection locking or multiphase averaging if the phase-noise mask is aggressive.
+\end{itemize}
 
 \section{Three-Stage Example}
 \begin{figure}[H]
@@ -36,6 +107,6 @@ Without a high-\(Q\) tank, ring VCOs generally exhibit worse phase noise than LC
 \end{figure}
 
 \section{Practical Design Guidelines}
-Use odd \(N\), add an output buffer, provide a clean programmable bias current, keep symmetric layout, and separate analog/digital grounds.
+Use odd \(N\), buffer the output, provide a clean programmable bias, keep symmetric layout, and separate analog/digital grounds. Consider multiphase outputs for divider/PLL interfaces to average jitter.
 
 

@@ -1,12 +1,20 @@
 \chapter{LC VCO}
-\section{Bể cộng hưởng và tần số}
-Tần số xấp xỉ: \( f \approx \frac{1}{2\pi\sqrt{LC}} \). Điều chỉnh bằng varactor \(C(V_{ctrl})\).
-\section{Độ lợi \(K_{VCO}\) và tuyến tính}
-Biểu thức tuyến tính cục bộ quanh \(V_{mid}\): \( f(V)=f_0+K_{VCO}(V-V_{mid}) \). Thiết kế varactor song song/đối xứng để cải thiện tuyến tính.
-\section{Nhiễu pha và hệ số \(Q\)}
-Theo Leeson \cite{leeson1966}: \(\mathcal{L}(\Delta f) \propto f_0^2/(Q^2\Delta f^2)\). Tăng \(Q\) bằng cuộn cảm chất lượng cao, giảm tổn hao, lọc dòng đuôi.
-\section{Kiến trúc mạch}
-Cross-coupled NMOS/PMOS, tail filtering, switched-cap tuning coarse/fine. Cân bằng biên độ để tránh kéo méo.
+\section{Resonant Tank and Frequency}
+The oscillation frequency is approximately
+\[
+ f \approx \frac{1}{2\pi\sqrt{LC}}
+\]
+and is tuned by a voltage-dependent capacitance \(C(V_{ctrl})\) using varactors.
+\section{VCO Gain \(K_{VCO}\) and Linearity}
+Locally around \(V_{mid}\), the tuning law is
+\[
+ f(V)=f_0+K_{VCO}(V-V_{mid})
+\]
+Parallel/symmetric varactor arrangements improve linearity and reduce AM-to-PM conversion.
+\section{Phase Noise and Quality Factor}
+Following Leeson \cite{leeson1966}, phase noise scales roughly as \(\mathcal{L}(\Delta f) \propto f_0^2/(Q^2\Delta f^2)\). Improving \(Q\) via high-quality inductors and reduced loss, and filtering tail current, reduces phase noise.
+\section{Circuit Topologies}
+Cross-coupled NMOS/PMOS cores, tail filtering, and switched-capacitor coarse/fine tuning are common. Amplitude balancing avoids core overdrive.
 \section{Illustrative Schematic}
 \begin{figure}[H]
   \centering
@@ -18,7 +26,7 @@ Cross-coupled NMOS/PMOS, tail filtering, switched-cap tuning coarse/fine. Cân b
   \end{circuitikz}
   \caption{LC VCO with varactor control}
 \end{figure}
-\section{Khuyến nghị thiết kế}
-Chọn dải varactor vừa đủ, thêm bank tụ chuyển mạch cho coarse tuning, cách ly nguồn, và dùng buffer xuất công suất thấp.
+\section{Design Guidelines}
+Select a just-enough varactor range, add switched-capacitor banks for coarse tuning, isolate supplies, and use a low-load output buffer.
 
 

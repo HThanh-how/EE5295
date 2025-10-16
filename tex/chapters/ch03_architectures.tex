@@ -80,6 +80,17 @@ For a fair comparison at fixed \(f_0\) and power, a simplified Leeson-inspired v
 \]
 Thus LC designs (higher \(Q\)) generally outperform ring designs if power is similar. Improving ring phase noise requires either more power or architectural tricks (e.g., injection locking, multiphase averaging).
 
+\subsection*{Relative PN map: LC vs Ring}
+Let subscripts R/L denote Ring/LC. Under similar measurement conditions (same \(f_0,\,\Delta f,\,T\)):
+\[
+ \frac{\mathcal{L}_\mathrm{LC}}{\mathcal{L}_\mathrm{Ring}} \approx \frac{F_\mathrm{LC}}{F_\mathrm{Ring}}\,\Big(\frac{Q_\mathrm{Ring}}{Q_\mathrm{LC}}\Big)^2\,\Big(\frac{P_\mathrm{Ring}}{P_\mathrm{LC}}\Big)
+\]
+Hence, \(\mathcal{L}_\mathrm{LC}<\mathcal{L}_\mathrm{Ring}\) when
+\[
+ \Big(\frac{Q_\mathrm{LC}}{Q_\mathrm{Ring}}\Big)^2 > \frac{F_\mathrm{LC}}{F_\mathrm{Ring}}\,\Big(\frac{P_\mathrm{Ring}}{P_\mathrm{LC}}\Big)
+\]
+This inequality provides a quick design map “when LC > Ring” given target \(Q\) and power ratios.
+
 \section{KVCO Linearity and DCO INL/DNL}
 The local linear tuning law is
 \[
@@ -87,8 +98,18 @@ The local linear tuning law is
 \]
 Define linearity error as \(\epsilon_{lin} = \max\_i |f_i - \hat{f}_i|/\text{FS}\), where \(\hat{f}_i\) is a linear fit and FS is the full-scale span. For a DCO, define code density DNL/INL on the frequency codes; thermometer coding for fine segments reduces DNL spikes.
 
+\subsection*{RMS jitter from phase-noise mask}
+Given a single-sideband mask \(\mathcal{L}(f)\) and carrier \(f_0\), the RMS jitter over offsets \([f_1, f_2]\) can be estimated by
+\[
+ \sigma_t \approx \frac{1}{2\pi f_0}\, \sqrt{ 2\int\limits_{f_1}^{f_2} \mathcal{L}(f)\,df }
+\]
+For tabulated points \(\{f_k,\,\mathcal{L}_k\}\), use a trapezoidal sum in linear power units.
+
 \section{Spur Mechanisms and Mitigations}
 Spurs arise from switched tuning elements, supply ripple, and CP/LF ripple inside PLLs. Mitigations include scrambling, dynamic element matching, spread-spectrum banks, and better decoupling/regulation.
+
+\subsection*{PLL CP ripple to VCO spur}
+Charge-pump ripple at the comparison frequency leaks through the loop filter to the VCO control node, creating reference spurs. Remedies: increase attenuation at \(f_{ref}\), use active filters, or add feed-forward cancellation. Scrambling the coarse bank reduces deterministic tones.
 
 \section{DCO Coarse/Fine Architecture}
 \begin{figure}[H]
@@ -116,6 +137,63 @@ Spurs arise from switched tuning elements, supply ripple, and CP/LF ripple insid
   \end{tikzpicture}
   \caption{KVCO linearization: actual curve vs local linear fit}
 \end{figure}
+
+\section{PN Targets and Jitter Table}
+\begin{table}[H]
+  \centering
+  \begin{tabular}{llll}
+    \toprule
+    Offset & Target PN (dBc/Hz) & Integrated band & Comment \\
+    \midrule
+    10 kHz  & $<-80$  & 1–20 kHz  & close-in flicker corner \\
+    100 kHz & $<-100$ & 20–200 kHz & main loop bandwidth region \\
+    1 MHz   & $<-120$ & 200 k–2 M & far-out thermal floor \\
+    \bottomrule
+  \end{tabular}
+  \caption{Example phase-noise targets and integration bands}
+\end{table}
+
+\section{Coarse/Fine Example and PVT Overlap}
+Consider a DCO with 5-bit coarse (binary) and 6-bit fine (thermometer) banks. Let coarse LSB be \(\Delta f_c\) and fine span be \(\approx 1.5\,\Delta f_c\). Then any adjacent coarse steps are bridged by fine codes to guarantee overlap across PVT (\(\pm10\%\,VDD\), TT/SS/FF, \(-40\,\text{to}\,125^\circ\!\text{C}\)). A calibration loop trims the operating code toward the closest target frequency while dithering below spur limits.
+
+\section{Startup Margin and PVT Sweep}
+\begin{table}[H]
+  \centering
+  \begin{tabular}{lll}
+    \toprule
+    Condition & Startup margin $M_{su}$ & Note \\
+    \midrule
+    TT, $V_{DD}$, 25$^\circ$C & $\times 2.5$ & nominal target \\
+    SS, $-10\%\,V_{DD}$, 125$^\circ$C & $\times 3.0$ & hardest corner \\
+    FF, $+10\%\,V_{DD}$, $-40^\circ$C & $\times 2.0$ & fast/high-supply \\
+    \bottomrule
+  \end{tabular}
+  \caption{Recommended startup margins across PVT corners}
+\end{table}
+
+\section{Layout and Power Delivery Checklist}
+\begin{itemize}
+  \item Guard rings around VCO core; use triple-well isolation where available.
+  \item Differential routing with symmetry; minimize loop area; shield sensitive nodes.
+  \item Multi-band decoupling (MIM + MOS + deep trench if available) near bias nodes.
+  \item Separate analog/digital ground; star-point returns; dedicated LDO for bias.
+  \item Keep switched banks away from high-impedance tank nodes; use common-centroid arrays for varactors.
+\end{itemize}
+
+\section{Quantitative Architecture Table at same $f_0$}
+\begin{table}[H]
+  \centering
+  \begin{tabular}{lllll}
+    \toprule
+    Architecture & PN@100 kHz & Range (\%) & Power (mW) & Area (mm$^2$) \\
+    \midrule
+    Ring & $-95$ & $\ge 50$ & 2 & $\le 0.05$ \\
+    LC   & $-110$ & 20–30 & 3 & 0.15–0.30 \\
+    Relaxation & $-80$ & $\ge 80$ & 1 & $\le 0.03$ \\
+    \bottomrule
+  \end{tabular}
+  \caption{Illustrative quantitative comparison at $f_0$ = 100 MHz}
+\end{table}
 
 \section{Calibration and Linearity Strategies}
 \subsection*{Coarse/Fine Tuning}

@@ -1,10 +1,14 @@
 \babel@toc {english}{}\relax 
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {2.1}{\ignorespaces Key symbols used in this chapter}}{6}{table.caption.8}%
+\contentsline {table}{\numberline {2.1}{\ignorespaces Key symbols used in this chapter}}{6}{table.caption.9}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {3.1}{\ignorespaces High-level comparison of VCO architectures}}{8}{table.caption.11}%
+\contentsline {table}{\numberline {3.1}{\ignorespaces High-level comparison of VCO architectures}}{10}{table.caption.20}%
+\contentsline {table}{\numberline {3.2}{\ignorespaces Example phase-noise targets and integration bands}}{11}{table.caption.26}%
+\contentsline {table}{\numberline {3.3}{\ignorespaces Recommended startup margins across PVT corners}}{12}{table.caption.27}%
+\contentsline {table}{\numberline {3.4}{\ignorespaces Illustrative quantitative comparison at $f_0$ = 100 MHz}}{12}{table.caption.28}%
 \addvspace {10\p@ }
+\contentsline {table}{\numberline {4.1}{\ignorespaces Example design targets for a ring VCO}}{16}{table.caption.35}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
