@@ -5,6 +5,7 @@ on:
     branches: ["**"]
   pull_request:
     branches: ["**"]
+  workflow_dispatch:
 
 jobs:
   build-pdf:
@@ -12,6 +13,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Diagnose workflow start
+        run: |
+          echo "Workflow triggered on $GITHUB_REF at commit $GITHUB_SHA"
+
+      - name: Show environment
+        run: |
+          uname -a
+          which xelatex || true
+          which latexmk || true
+          which biber || true
+          tlmgr --version || true
 
       - name: Compile LaTeX
         uses: xu-cheng/latex-action@v3
@@ -23,11 +36,29 @@ jobs:
           extra_system_packages: biber
           pre_compile: tlmgr update --self && tlmgr install biblatex biber biblatex-ieee csquotes siunitx circuitikz lm pgfplots babel-english
 
+      - name: List workspace files
+        if: always()
+        run: |
+          ls -la
+          echo "Report exists?"; [ -f report.pdf ] && echo yes || echo no
+
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: vco-report-pdf
           path: report.pdf
+
+      - name: Upload logs (always)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: vco-report-logs
+          path: |
+            report.log
+            report.bcf*
+            report.bbl*
+            report.fls
+            report.fdb_latexmk
 
   release:
     if: startsWith(github.ref, 'refs/tags/')
