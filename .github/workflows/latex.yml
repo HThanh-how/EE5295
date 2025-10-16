@@ -21,7 +21,7 @@ jobs:
           latexmk_use_biber: true
           latexmk_shell_escape: true
           extra_system_packages: biber
-          pre_compile: tlmgr update --self && tlmgr install biblatex biber csquotes siunitx circuitikz lm
+          pre_compile: tlmgr update --self && tlmgr install biblatex biber csquotes siunitx circuitikz lm pgfplots
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
