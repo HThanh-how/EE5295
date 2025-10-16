@@ -102,6 +102,40 @@ Supply ripple at frequency \(f_r\) modulates the control node or tail current an
   \caption{Example PN budget and dominant mitigation levers}
 \end{table}
 
+\section{Inductor $Q(f)$ Illustration and Parasitics}
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+    \begin{axis}[
+      width=0.95\linewidth, height=5.5cm,
+      xlabel={$f$ (MHz)}, ylabel={$Q$}, grid=both]
+      \addplot[blue, thick] table[row sep=\\]{x y \\
+        1   18 \\
+        5   28 \\
+        10  35 \\
+        20  32 \\
+        50  24 \\
+      };
+    \end{axis}
+  \end{tikzpicture}
+  \caption{Illustrative inductor quality factor vs. frequency}
+\end{figure}
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{lll}
+    \toprule
+    Parasitic & Typical value & PN impact \\
+    \midrule
+    Metal series $R_s$ & 0.4–1.2 $\Omega$ & lowers $Q$, raises far-out PN \\
+    Substrate $C_{sub}$ & 50–200 fF & adds loss, close-in PN via $Q$ \\
+    Varactor $R_p$ & 1–5 k$\Omega$ & AM-to-PM path, 1/f folding \\
+    Tail current noise & nA/$\sqrt{\text{Hz}}$ & upconverts to phase \\
+    \bottomrule
+  \end{tabular}
+  \caption{EM/parasitic summary and qualitative phase-noise effects}
+\end{table}
+
 \section{ISF Illustration}
 \begin{figure}[H]
   \centering

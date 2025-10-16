@@ -21,7 +21,7 @@ jobs:
           latexmk_use_biber: true
           latexmk_shell_escape: true
           extra_system_packages: biber
-          pre_compile: tlmgr update --self && tlmgr install biblatex biber csquotes siunitx circuitikz lm pgfplots
+          pre_compile: tlmgr update --self && tlmgr install biblatex biber biblatex-ieee csquotes siunitx circuitikz lm pgfplots babel-english
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -45,5 +45,20 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: dist/report.pdf
+
+  build-tectonic:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Tectonic build
+        uses: tectonic-typesetting/tectonic-action@v1
+        with:
+          tex_path: report.tex
+      - name: Upload artifact (tectonic)
+        uses: actions/upload-artifact@v4
+        with:
+          name: vco-report-tectonic
+          path: report.pdf
 
 
