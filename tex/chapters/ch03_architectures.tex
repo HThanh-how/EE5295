@@ -1,13 +1,138 @@
 \chapter{VCO Architectures}
 \section{Taxonomy}
 Common categories include ring VCOs, LC VCOs, and relaxation VCOs. Selection depends on target frequency, phase-noise budget, tuning range, power, and silicon area.
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[node distance=1.6cm, >=Latex]
+    \node[draw, rounded corners, minimum width=3.2cm, minimum height=0.9cm, fill=gray!10] (vco) {VCO};
+    \node[draw, rounded corners, below left=of vco, minimum width=3.2cm] (ring) {Ring VCO};
+    \node[draw, rounded corners, below=of vco, minimum width=3.2cm] (lc) {LC VCO};
+    \node[draw, rounded corners, below right=of vco, minimum width=3.2cm] (relax) {Relaxation VCO};
+    \draw[->] (vco) -- (ring);
+    \draw[->] (vco) -- (lc);
+    \draw[->] (vco) -- (relax);
+  \end{tikzpicture}
+  \caption{Taxonomy of common VCO architectures}
+\end{figure}
 \section{Ring VCO}
 Pros: compact, wide tuning, easy integration; Cons: higher phase noise, supply sensitivity. Frequency roughly \(1/(2Nt_p)\).
+\subsection*{Delay and Bias Control}
+For a current-controlled ring, the per-stage delay scales as
+\[
+ t_p \propto \frac{C_L\,V_{swing}}{I_{bias}}
+\]
+leading to
+\[
+ f_{osc} \approx \frac{1}{2 N t_p} \propto \frac{I_{bias}}{C_L\,V_{swing}}
+\]
+Linearization uses bias shapers to map \(V_{ctrl}\) to \(I_{bias}\) linearly over the useful range.
+\subsection*{Supply and Substrate Noise}
+Use local LDOs or filters for bias, star-grounding, guard rings, and differential structures to mitigate AM-to-PM conversion.
+\subsection*{Digitally Controlled Oscillator (DCO)}
+Replace the analog control with a digitally switched load or current bank. Coarse/fine segmentation provides monotonic tuning with calibration.
 \section{LC VCO}
 Pros: low phase noise, good spectral purity; Cons: larger area (inductors), narrower tuning. Frequency set by \(1/(2\pi\sqrt{LC})\).
+\subsection*{Tank and Negative Resistance}
+The tank resonance is
+\[
+ f_0 = \frac{1}{2\pi\sqrt{LC}}
+\]
+Active devices provide an effective negative resistance \(-R_n\) to cancel the parallel loss \(R_p\). Startup requires \(|R_n|>R_p\).
+\subsection*{Varactors and Tuning Law}
+MOS varactors (accumulation) and PN junction varactors trade off \(Q\), tuning range, and voltage headroom. The local linear law around \(V_{mid}\) is
+\[
+ f(V_{ctrl}) \approx f_0 + K_{VCO}(V_{ctrl}-V_{mid})
+\]
+Use switched-cap banks for coarse tuning and varactor for fine tuning to ensure overlap across PVT.
+\subsection*{Phase Noise Considerations}
+Leeson-like behavior motivates maximizing tank \(Q\), minimizing device noise factor, and filtering the tail current. Symmetric differential cores reduce even-order distortion.
 \section{Relaxation VCO}
 Pros: very wide tuning, simple concept; Cons: poor spectral purity for RF. Suitable for low-to-mid frequency timers.
+\subsection*{Core Principle}
+Integrate a current on a capacitor until a threshold, then reset via a comparator. Frequency is approximately
+\[
+ f \approx \frac{I}{C\,\Delta V}
+\]
+where \(\Delta V\) is the hysteresis window.
+\subsection*{Use Cases}
+Good for timers, low-frequency modulators, or as coarse DCO elements inside synthesizers.
 \section{Comparison Guidance}
 When phase noise is critical (RF synthesizers), choose LC. When area and wide range dominate (digitally controlled oscillators, on-chip clocks), choose ring. Hybrid strategies combine coarse digital banks with fine analog tuning.
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{llll}
+    \toprule
+    Architecture & Phase Noise & Tuning Range & Area/Complexity \\
+    \midrule
+    Ring & Higher & Wide & Small / Low \\
+    LC & Lower & Moderate & Larger / Medium \\
+    Relaxation & Poor (RF) & Very Wide & Small / Low \\
+    \bottomrule
+  \end{tabular}
+  \caption{High-level comparison of VCO architectures}
+\end{table}
+
+\section{Quantitative Phase-Noise Comparison}
+For a fair comparison at fixed \(f_0\) and power, a simplified Leeson-inspired view suggests
+\[
+ \mathcal{L}(\Delta f) \propto \frac{F k T}{2 P_s}\,\frac{f_0^2}{Q^2\,\Delta f^2}
+\]
+Thus LC designs (higher \(Q\)) generally outperform ring designs if power is similar. Improving ring phase noise requires either more power or architectural tricks (e.g., injection locking, multiphase averaging).
+
+\section{KVCO Linearity and DCO INL/DNL}
+The local linear tuning law is
+\[
+ f(V_{ctrl}) \approx f_0 + K_{VCO}(V_{ctrl}-V_{mid})
+\]
+Define linearity error as \(\epsilon_{lin} = \max\_i |f_i - \hat{f}_i|/\text{FS}\), where \(\hat{f}_i\) is a linear fit and FS is the full-scale span. For a DCO, define code density DNL/INL on the frequency codes; thermometer coding for fine segments reduces DNL spikes.
+
+\section{Spur Mechanisms and Mitigations}
+Spurs arise from switched tuning elements, supply ripple, and CP/LF ripple inside PLLs. Mitigations include scrambling, dynamic element matching, spread-spectrum banks, and better decoupling/regulation.
+
+\section{DCO Coarse/Fine Architecture}
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[node distance=1.4cm, >=Latex]
+    \node[draw, rounded corners, minimum width=2.6cm] (coarse) {Coarse Bank (Binary)};
+    \node[draw, rounded corners, right=of coarse, minimum width=2.6cm] (fine) {Fine Bank (Thermo)};
+    \node[draw, rounded corners, right=of fine, minimum width=2.6cm] (core) {VCO Core};
+    \draw[->] (coarse) -- (fine);
+    \draw[->] (fine) -- (core);
+  \end{tikzpicture}
+  \caption{Digitally Controlled Oscillator with coarse/fine segmented banks}
+\end{figure}
+
+\section{Example KVCO Curve}
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[scale=1]
+    \draw[->] (-0.2,0) -- (7,0) node[right] {$V_{ctrl}$};
+    \draw[->] (0,-0.2) -- (0,4) node[above] {$f$};
+    \draw[blue, thick] (0.5,0.6) .. controls (2,1.1) and (4,2.5) .. (6,3.6);
+    \draw[red, dashed] (0.5,0.7) -- (6,3.4);
+    \node[blue] at (4.9,3.2) {actual};
+    \node[red] at (2.6,2.3) {linear fit};
+  \end{tikzpicture}
+  \caption{KVCO linearization: actual curve vs local linear fit}
+\end{figure}
+
+\section{Calibration and Linearity Strategies}
+\subsection*{Coarse/Fine Tuning}
+Combine a binary-weighted coarse bank (range coverage) with a thermometer-coded fine bank (monotonicity). Overlay analog fine control to smooth residual steps.
+\subsection*{Background Calibration}
+Track PVT drift by periodically dithering around the operating code and minimizing a phase/frequency error metric. Keep dither below spur tolerance.
+\subsection*{AM-to-PM Mitigation}
+Stabilize swing (e.g., amplitude regulation loops) to reduce AM-to-PM conversion and improve phase-noise-to-jitter translation.
+
+\section{Design Checklists}
+\begin{itemize}
+  \item Specify phase-noise mask, tuning range, power, and spur limits.
+  \item Choose architecture; for LC, pick \(L\) and varactor ranges to cover PVT.
+  \item Ensure startup margin and verify across corners and temperatures.
+  \item Plan coarse/fine segmentation and calibration hooks.
+  \item Simulate PSS/Pnoise (or time-domain jitter) and iterate sizing.
+  \item Floorplan: route differential, shield sensitive nodes, decouple supplies.
+\end{itemize}
 
 
