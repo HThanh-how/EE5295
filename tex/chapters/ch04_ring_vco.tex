@@ -1,0 +1,41 @@
+\chapter{Ring VCO}
+\section{General Structure}
+A ring VCO consists of \(N\) inverting stages connected in a loop so that the total phase shift is \((2k+1)\pi\). The fundamental frequency is approximately
+\[
+f_{osc} \approx \frac{1}{2 N t_{p}(I_{bias}, V_{ctrl})}
+\]
+where \(t_p\) is the per-stage propagation delay controlled by bias current/voltage.
+
+\section{Delay Model and \(K_{VCO}\)}
+With current control \(I_{ctrl}\), one has \(t_p \propto C_L V_{swing}/I_{ctrl}\), hence
+\[
+f_{osc}(I_{ctrl}) \approx \frac{I_{ctrl}}{2 N C_L V_{swing}}\,,\quad K_{VCO} = \frac{\partial f}{\partial V_{ctrl}} = \frac{\partial f}{\partial I_{ctrl}}\frac{\partial I_{ctrl}}{\partial V_{ctrl}}
+\]
+Design chooses \(K_{VCO}\) large enough for acquisition margin but not excessively sensitive to noise.
+
+\section{Linearizing \(f\)–\(V_{ctrl}\)}
+Techniques include: (i) reference current linear in \(V_{ctrl}\); (ii) cascoding to stabilize swing; (iii) multi-segment digital calibration.
+
+\section{Noise and Jitter}
+Without a high-\(Q\) tank, ring VCOs generally exhibit worse phase noise than LC VCOs. Noise can be mitigated by higher bias current, device sizing optimization, and careful supply isolation \cite{razavi_rf}.
+
+\section{Three-Stage Example}
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[scale=1]
+    \node[draw, minimum width=2.2cm, minimum height=1cm] (inv1) at (0,0) {INV1};
+    \node[draw, minimum width=2.2cm, minimum height=1cm] (inv2) at (4,0) {INV2};
+    \node[draw, minimum width=2.2cm, minimum height=1cm] (inv3) at (8,0) {INV3};
+    \draw[-latex] (inv1) -- (inv2);
+    \draw[-latex] (inv2) -- (inv3);
+    \draw[-latex] (8,0.5) to[out=45,in=135] (10,0) to[out=-45,in=45] (8,-0.5);
+    \draw[-latex] (8,-0.5) to[out=-135,in=-45] (0,-0.5) to[out=135,in=-135] (0,0.5);
+    \node at (10.6,0) {$V_{out}$};
+  \end{tikzpicture}
+  \caption{Three-stage ring VCO with feedback loop}
+\end{figure}
+
+\section{Practical Design Guidelines}
+Use odd \(N\), add an output buffer, provide a clean programmable bias current, keep symmetric layout, and separate analog/digital grounds.
+
+

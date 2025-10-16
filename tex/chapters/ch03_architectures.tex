@@ -1,0 +1,13 @@
+\chapter{VCO Architectures}
+\section{Taxonomy}
+Common categories include ring VCOs, LC VCOs, and relaxation VCOs. Selection depends on target frequency, phase-noise budget, tuning range, power, and silicon area.
+\section{Ring VCO}
+Pros: compact, wide tuning, easy integration; Cons: higher phase noise, supply sensitivity. Frequency roughly \(1/(2Nt_p)\).
+\section{LC VCO}
+Pros: low phase noise, good spectral purity; Cons: larger area (inductors), narrower tuning. Frequency set by \(1/(2\pi\sqrt{LC})\).
+\section{Relaxation VCO}
+Pros: very wide tuning, simple concept; Cons: poor spectral purity for RF. Suitable for low-to-mid frequency timers.
+\section{Comparison Guidance}
+When phase noise is critical (RF synthesizers), choose LC. When area and wide range dominate (digitally controlled oscillators, on-chip clocks), choose ring. Hybrid strategies combine coarse digital banks with fine analog tuning.
+
+

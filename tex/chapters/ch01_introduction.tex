@@ -1,0 +1,25 @@
+\chapter{Introduction}
+\section{Background and Motivation}
+Voltage Controlled Oscillators (VCOs) convert a control voltage into an output frequency and are ubiquitous in modern electronic systems. Typical applications include frequency synthesis in Phase-Locked Loops (PLLs), RF transceivers, clock generation and recovery, time-to-digital conversion, and sensor interfaces. As integration scales and performance targets tighten, designers must carefully trade off phase noise, tuning range, power, and silicon area.
+
+\section{Objectives and Scope}
+This report aims to provide a practical yet rigorous overview to design, analyze, and integrate VCOs. The scope covers fundamentals of oscillation, architectural choices (ring versus LC), phase-noise modeling, design procedures, PLL integration, measurement methodology, and a case study. The focus is on CMOS-integrated designs while keeping the discussion general enough to apply to other technologies.
+
+\section{Contributions}
+The main contributions are:
+\begin{itemize}
+  \item A structured design workflow from specification to final verification.
+  \item Consolidated phase-noise reasoning with actionable reduction techniques.
+  \item Comparative guidance between ring and LC VCOs with selection heuristics.
+  \item A reproducible case study with tunable parameters and measurement plan.
+\end{itemize}
+
+\section{Report Structure}
+The report is organized as follows. Chapter~2 reviews oscillation fundamentals, Barkhausen criteria, LC resonance, and quality factor. Chapter~3 surveys VCO architectures with pros/cons. Chapter~4 details ring VCO theory and practical design. Chapter~5 focuses on LC VCO tanks, tuning, and negative resistance topologies. Chapter~6 develops phase-noise models and reduction techniques. Chapter~7 outlines a step-by-step design flow. Chapter~8 integrates VCOs inside PLLs and discusses loop stability and jitter. Chapter~9 covers measurement and calibration. Chapter~10 presents a 10~MHz case study. Chapter~11 concludes and suggests future work. Appendices provide derivations, simulation setups, and datasheets.
+
+\section{Notation and Units}
+Frequencies are denoted by \(f\) in Hz, angular frequencies by \(\omega = 2\pi f\) in rad/s. Voltages and currents are expressed in SI units. Phase noise is reported as single-sideband spectral density in dBc/Hz at an offset frequency \(\Delta f\). The VCO gain is \(K_{VCO} = \partial f/\partial V_{ctrl}\) in Hz/V.
+
+\section{Assumptions and Limitations}
+Unless stated otherwise, noise sources are treated as small-signal perturbations around the steady-state oscillation. Parasitics are aggregated into effective tank parameters. Nonlinear effects are discussed qualitatively with emphasis on their impact on amplitude regulation and phase noise.
+

@@ -1,0 +1,24 @@
+\chapter{LC VCO}
+\section{Bể cộng hưởng và tần số}
+Tần số xấp xỉ: \( f \approx \frac{1}{2\pi\sqrt{LC}} \). Điều chỉnh bằng varactor \(C(V_{ctrl})\).
+\section{Độ lợi \(K_{VCO}\) và tuyến tính}
+Biểu thức tuyến tính cục bộ quanh \(V_{mid}\): \( f(V)=f_0+K_{VCO}(V-V_{mid}) \). Thiết kế varactor song song/đối xứng để cải thiện tuyến tính.
+\section{Nhiễu pha và hệ số \(Q\)}
+Theo Leeson \cite{leeson1966}: \(\mathcal{L}(\Delta f) \propto f_0^2/(Q^2\Delta f^2)\). Tăng \(Q\) bằng cuộn cảm chất lượng cao, giảm tổn hao, lọc dòng đuôi.
+\section{Kiến trúc mạch}
+Cross-coupled NMOS/PMOS, tail filtering, switched-cap tuning coarse/fine. Cân bằng biên độ để tránh kéo méo.
+\section{Illustrative Schematic}
+\begin{figure}[H]
+  \centering
+  \begin{circuitikz}[european]
+    \draw (0,0) node[ground]{} to[I, l=$I_{bias}$] (0,3) -- (2,3)
+          (2,3) to[L,l=$L$] (4,3) -- (6,3)
+          (4,3) to[C,l=$C(V_{ctrl})$] (4,0)
+          (6,3) to[open,v^>=$V_{out}$] (6,0);
+  \end{circuitikz}
+  \caption{LC VCO with varactor control}
+\end{figure}
+\section{Khuyến nghị thiết kế}
+Chọn dải varactor vừa đủ, thêm bank tụ chuyển mạch cho coarse tuning, cách ly nguồn, và dùng buffer xuất công suất thấp.
+
+
