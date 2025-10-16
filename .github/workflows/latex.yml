@@ -51,14 +51,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Tectonic build
-        uses: tectonic-typesetting/tectonic-action@v1
-        with:
-          tex_path: report.tex
-      - name: Upload artifact (tectonic)
-        uses: actions/upload-artifact@v4
-        with:
-          name: vco-report-tectonic
-          path: report.pdf
+      # Removed deprecated/unavailable action 'tectonic-typesetting/tectonic-action'.
+      # If Tectonic is desired, replace with a maintained action or install via package manager.
 
 
