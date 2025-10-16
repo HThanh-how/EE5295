@@ -42,6 +42,34 @@ Ring VCOs lack a high-\(Q\) tank, so phase noise is typically worse than LC. A r
 \]
 Mitigations: increase bias (faster edges), optimize device sizes, isolate supplies, differential routing, and multiphase averaging. Injection locking can further clean phase noise around the carrier at the cost of lock range.
 
+\subsection*{Time-to-Phase Conversion}
+Let timing perturbation be \(\delta t(t)\). The instantaneous phase error is
+\[
+ \delta\phi(t) \approx 2\pi f_{osc}\,\delta t(t)
+\]
+so the phase-noise PSD relates to timing-noise PSD by
+\[
+ S_{\phi\phi}(f) = (2\pi f_{osc})^2\, S_{tt}(f)
+\]
+and the single-sideband phase noise is
+\[
+ \mathcal{L}(f) \approx 10\log_{10}\!\Big( \tfrac{1}{2} S_{\phi\phi}(f) \Big)
+\]
+This provides a path from time-domain jitter simulations to spectral specifications.
+
+\subsection*{Multiphase Averaging}
+Generating \(M\) evenly spaced phases and averaging reduces uncorrelated jitter roughly as
+\[
+ \sigma_{t,\,avg} \approx \frac{\sigma_{t,\,out}}{\sqrt{M}}
+\]
+Practical dividers and phase rotators add their own noise; include them in the budget.
+
+\subsection*{PSS/Pnoise Setup}
+For RF simulators, run PSS at \(f_{osc}\). Then run Pnoise in ``jitter'' or ``time-averaged'' mode with noise folding enabled. Sweep offsets (e.g., 1 kHz to 100 MHz) and export \(\mathcal{L}(f)\). Validate against time-domain jitter by integrating PN to \(\sigma_t\) and cross-check with transient noise.
+
+\subsection*{Measurement Guidance}
+Use a low-noise buffer to the spectrum analyzer; for close-in \(\mathcal{L}(f)\), use a cross-correlation phase-noise analyzer. Calibrate cable and buffer responses. Record supply sensitivity by injecting ripple and plotting \(\Delta f\) and spur levels versus ripple amplitude.
+
 \subsection*{Injection Locking (Adler's Equation)}
 With a periodic injection at frequency \(\omega_{inj}\) near \(\omega_0\), the phase dynamics follow Adler's equation \cite{adler1946}:
 \[
@@ -58,6 +86,27 @@ Target \(f_{osc}=\SI{500}{\mega\hertz}\) with \(N=5\), \(V_{swing}=\SI{0.6}{V}\)
  I_{ctrl,mid} \approx 2 N C_L V_{swing} f_{osc} = 2\cdot 5\cdot 15\times10^{-15}\cdot 0.6\cdot 5\times10^{8} \approx \SI{45}{\micro A}
 \]
 If \(g_m=\SI{200}{\micro A/V}\), then \(K_{VCO}\approx \tfrac{g_m}{2 N C_L V_{swing}} \approx \SI{2.2}{\mega Hz/V}\). Choose bias range such that coarse/fine calibration covers PVT drift.
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+    \begin{axis}[
+      width=0.9\linewidth,
+      height=5cm,
+      xlabel={$I_{ctrl}$ ($\mu$A)}, ylabel={$f$ (MHz)}, grid=both]
+      \addplot[blue, thick] table[row sep=\\]{
+      x y \\
+      30  350 \\
+      40  460 \\
+      50  570 \\
+      60  680 \\
+      70  790 \\
+      80  900 \\
+      };
+    \end{axis}
+  \end{tikzpicture}
+  \caption{Example $f(I_{ctrl})$ characteristic for a 5-stage ring}
+\end{figure}
 
 \subsection*{Stage Sizing Trade-offs}
 Larger devices reduce thermal noise but increase load \(C_L\) and power. There is an optimum where the product of edge rate and noise spectral density minimizes jitter. Simulate a sweep of widths and extract RMS jitter to locate the optimum.

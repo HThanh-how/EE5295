@@ -9,9 +9,11 @@
 \contentsline {figure}{\numberline {3.3}{\ignorespaces KVCO linearization: actual curve vs local linear fit}}{11}{figure.caption.25}%
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {4.1}{\ignorespaces Conceptual chain of current-starved inverters}}{14}{figure.caption.32}%
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Three-stage ring VCO with feedback loop}}{16}{figure.caption.36}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Example $f(I_{ctrl})$ characteristic for a 5-stage ring}}{16}{figure.caption.38}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Three-stage ring VCO with feedback loop}}{17}{figure.caption.41}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces LC VCO with varactor control}}{18}{figure.caption.37}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Example $f(V_{ctrl})$ and local linear fit around $V_{mid}$}}{21}{figure.caption.46}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces LC VCO with varactor control}}{21}{figure.caption.47}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
