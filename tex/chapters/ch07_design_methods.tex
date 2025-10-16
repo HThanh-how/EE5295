@@ -67,7 +67,7 @@ We combine the main figures of merit (FOMs) in a weighted cost. Typical weights 
     \node[blk, right=of sur] (ga) {GA/PSO Search};
     \node[blk, right=of ga] (verify) {Detailed Sims (PSS/Pnoise, EM)};
     \node[blk, right=of verify] (pvt) {PVT/MC Sweep};
-    \node[blk, right=of pvt] (final) {Finalize & Handoff};
+    \node[blk, right=of pvt] (final) {Finalize \& Handoff};
     \draw[->] (specs) -- (sur);
     \draw[->] (sur) -- (ga);
     \draw[->] (ga) -- (verify);
