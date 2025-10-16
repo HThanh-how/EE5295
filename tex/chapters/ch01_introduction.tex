@@ -23,3 +23,24 @@ Frequencies are denoted by \(f\) in Hz, angular frequencies by \(\omega = 2\pi f
 \section{Assumptions and Limitations}
 Unless stated otherwise, noise sources are treated as small-signal perturbations around the steady-state oscillation. Parasitics are aggregated into effective tank parameters. Nonlinear effects are discussed qualitatively with emphasis on their impact on amplitude regulation and phase noise.
 
+\section{Applications and Target Specifications}
+Typical VCO applications include frequency synthesis in PLLs, RF transceivers (LO generation), clock/data recovery, and precision timing for data converters. We target a practical design envelope for this report.
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{lll}
+    \toprule
+    Parameter & Target & Rationale \\
+    \midrule
+    Center frequency $f_0$ & 10 MHz & easy lab instrumentation \\
+    Tuning range & $\pm20\%$ & cover PVT and app variations \\
+    $K_{VCO}$ & $\sim 1$–$3$ MHz/V & PLL bandwidth, spur control \\
+    Phase noise @100 kHz & $< -100$ dBc/Hz & low-jitter requirement \\
+    Supply $V_{DD}$ & 1.8 V & common low-voltage node \\
+    Power & $< 10$ mW & portable/embedded use \\
+    Area (LC) & $\le 0.3\,\mathrm{mm}^2$ & on-chip feasibility \\
+    \bottomrule
+  \end{tabular}
+  \caption{Target specification summary used throughout the report}
+\end{table}
+
