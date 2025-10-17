@@ -1,4 +1,58 @@
 \chapter{Appendix C: Datasheets and Look-up Tables}
 Collection of datasheets: varactors, transistors, and parameter look-up tables for design calculations.
 
+\section*{C.1 Typical Device Parameters (Illustrative)}
+\begin{table}[H]
+  \centering
+  \begin{tabular}{lcc}
+    \toprule
+    Parameter & Value & Unit \\
+    \midrule
+    NMOS $V_T$ & 0.45 & V \\
+    PMOS $|V_T|$ & 0.45 & V \\
+    $\mu_n C_{ox}$ & 200 & $\mu$A/V$^2$ \\
+    $\mu_p C_{ox}$ & 100 & $\mu$A/V$^2$ \\
+    Varactor $C_{min}$ & 5 & fF \\
+    Varactor $C_{max}$ & 25 & fF \\
+    \bottomrule
+  \end{tabular}
+  \caption{Representative parameters used in back-of-envelope sizing.}
+\end{table}
+
+\section*{C.2 Quick Look-up}
+\begin{itemize}
+  \item $f_0 \approx \dfrac{1}{2\pi\sqrt{LC}}$ (LC VCO)
+  \item $f_{osc} \approx \dfrac{I_{ctrl}}{2 N C_L V_{swing}}$ (ring VCO)
+  \item $K_{VCO} \approx \dfrac{g_m}{2 N C_L V_{swing}}$ (linearized)
+\end{itemize}
+
+\section*{C.3 Corner and Varactor Tables (Illustrative)}
+\begin{table}[H]
+  \centering
+  \begin{tabular}{lccc}
+    \toprule
+    Corner & $\mu_n C_{ox}$ & $\mu_p C_{ox}$ & Note \\
+    \midrule
+    TT & 200 & 100 & baseline \\
+    SS & 160 & 80 & slower devices \\
+    FF & 240 & 120 & faster devices \\
+    \bottomrule
+  \end{tabular}
+  \caption{Process corners for quick hand estimates ($\mu$A/V$^2$).}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{lcc}
+    \toprule
+    $V_{bias}$ (V) & $C$ (fF) & Note \\
+    \midrule
+    0.5 & 25 & $C_{max}$ region \\
+    1.0 & 16 & mid-range \\
+    1.5 & 8 & $C_{min}$ region \\
+    \bottomrule
+  \end{tabular}
+  \caption{Example varactor $C(V)$ points used for sizing sanity checks.}
+\end{table}
+
 

@@ -1,4 +1,59 @@
 \chapter{Appendix B: Simulation Setup}
 Tool configurations, simulation parameters, scripts, and reproducibility procedure.
 
+\section*{B.1 Tools and Versions}
+\begin{itemize}
+  \item Simulator: ngspice (batch mode), Python 3.11 with numpy/pandas/matplotlib/scipy.
+  \item Execution: Jupyter notebook `VCO_Complete_Simulation.ipynb` and Python scripts under `EE5295_Sim_Scaffold/python/`.
+\end{itemize}
+
+\section*{B.2 Netlist Options}
+Representative transient deck settings used in sweeps:
+\begin{itemize}
+  \item Transient: \texttt{tran 0.1n 100u 20u}
+  \item Initial conditions: \texttt{.ic} on key nodes to ensure startup
+  \item Export: \texttt{wrdata} waveforms, and CSV of f--\(V_{ctrl}\)
+  \item Sweep: \texttt{step param VCTRL list 0.4 0.6 0.8 1.0 1.2 1.4 1.6}
+\end{itemize}
+
+\section*{B.3 Reproducibility}
+\begin{enumerate}
+  \item Run the notebook cells guarded by `HAVE_NGSPICE` to generate waveforms and `ring_vco_fv.csv`.
+  \item For robustness, frequency is computed in Python via FFT on the final window of the transient response.
+  \item Figures are saved to `figures/` and imported by LaTeX directly.
+\end{enumerate}
+
+\section*{B.4 PSO Script}
+The optimization code is provided as `python/pso_opt.py`. It logs best cost per iteration and writes `pso_convergence.png` for inclusion in Chapter~4 and the appendix.
+
+\section*{B.5 Minimal Netlist Snippet}
+\begin{lstlisting}
+* transient sweep (excerpt)
+.param VCTRL=1.0
+Vbias vb 0 DC {VCTRL}
+.ic v(n1)=0 v(n3)=1.8 v(n5)=0
+.tran 0.1n 100u 20u
+.control
+  run
+  wrdata spice/results/ring_vco_wave.csv time v(n1) v(n3) v(n5)
+.endc
+\end{lstlisting}
+
+\section*{B.6 Sweep Parameters}
+\begin{table}[H]
+  \centering
+  \begin{tabular}{lcc}
+    \toprule
+    Parameter & Value & Note \\
+    \midrule
+    Timestep & 0.1 ns & resolution \\
+    Stop time & 100 \(\mu\)s & steady-state ensured \\
+    Skip (uic) & 20 \(\mu\)s & analysis start for FFT \\
+    VCTRL list & 0.4--1.6 V & 0.2 V step \\
+    Export & CSV & `wrdata` waveforms \\
+    \bottomrule
+  \end{tabular}
+  \caption{Key parameters for batch sweep and export.}
+\end{table}
+
 

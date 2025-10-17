@@ -1,4 +1,52 @@
 \chapter{Appendix A: Derivations}
 Details on Leeson's equation, noise modeling, and linearization of \(f(V_{ctrl})\).
 
+\section*{A.1 Leeson-style Phase Noise}
+Starting from the small-signal phase perturbation model, the single-sideband phase noise around the carrier can be approximated by
+\[
+  \mathcal{L}(f_\text{off}) \approx 10\log_{10} \Bigg( \frac{F k T}{2 P_{\text{sig}}} \Big[1+\big(\tfrac{f_c}{f_\text{off}}\big)\Big] \Big(\frac{f_0}{2 Q f_\text{off}}\Big)^2 \Bigg) \,\text{dBc/Hz},
+\]
+where \(F\) is noise factor, \(Q\) effective tank quality factor, \(f_c\) the 1/f corner, and \(P_{\text{sig}}\) signal power at the load. This form motivates our proxy used inside PSO: larger \(Q\) and carrier power, and larger offset reduce \(\mathcal{L}\).
+
+\section*{A.2 Ring Frequency Approximation}
+For a ring VCO with \(N\) identical stages of propagation delay \(t_p\),
+\[
+  f_{osc} \approx \frac{1}{2 N t_p}\,.
+\]
+With current-starved inverters, the stage delay scales as
+\[
+  t_p \propto \frac{C_L \; V_{swing}}{I_{ctrl}}\,,\quad \Rightarrow \quad f_{osc}(I_{ctrl}) \approx \frac{I_{ctrl}}{2 N C_L V_{swing}}\,.
+\]
+
+\section*{A.3 Linearization of \(f(V_{ctrl})\)}
+If the bias generator gives \(I_{ctrl} = g_m \,(V_{ctrl} - V_T)\) locally, then
+\[
+  f(V_{ctrl}) \approx \frac{g_m}{2 N C_L V_{swing}}\,(V_{ctrl}-V_T)\,\Rightarrow\, K_{VCO} = \frac{\partial f}{\partial V_{ctrl}} \approx \frac{g_m}{2 N C_L V_{swing}}\,.
+\]
+Nonlinearities (slew-limited edges, device \(g_m\) roll-off) bend the curve; mid-range calibration or bias shaping restores linearity.
+
+\section*{A.4 Time-to-Phase Relation}
+For small timing error \(\delta t(t)\), instantaneous phase error is
+\[
+  \delta\phi(t) \approx 2\pi f_{osc}\, \delta t(t),\quad S_{\phi\phi}(f) = (2\pi f_{osc})^2 S_{tt}(f)\,.
+\]
+This connects transient jitter post-processing to \(\mathcal{L}(f)\) used in specifications.
+
+\section*{A.5 Example Numbers}
+Assume \(f_0=10\,\text{MHz}\), \(Q=20\), \(F=3\), \(P_{sig}=0.5\,\text{mW}\), \(f_c=10\,\text{kHz}\), \(T=300\,\text{K}\). Evaluating the Leeson-style expression gives the following illustrative values:
+\begin{table}[H]
+  \centering
+  \begin{tabular}{lcc}
+    \toprule
+    Offset & $\mathcal{L}(f)$ & Note \\
+    \midrule
+    10 kHz & $\approx -85$ dBc/Hz & close-in region \\
+    100 kHz & $\approx -100$ dBc/Hz & far from $f_c$ \\
+    1 MHz & $\approx -120$ dBc/Hz & roll-off $\propto f_{off}^{-2}$ \\
+    \bottomrule
+  \end{tabular}
+  \caption{Illustrative PN from Leeson-type estimate.}
+\end{table}
+Integrating \(\mathcal{L}(f)\) over offset bandwidth yields RMS jitter; compare with transient-based extraction for sanity check.
+
 
