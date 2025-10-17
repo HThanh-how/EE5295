@@ -10,21 +10,21 @@
 \contentsline {table}{\numberline {3.4}{\ignorespaces Illustrative quantitative comparison at $f_0$ = 100 MHz}}{12}{table.caption.29}%
 \addvspace {10\p@ }
 \contentsline {table}{\numberline {4.1}{\ignorespaces Example design targets for a ring VCO}}{17}{table.caption.41}%
+\contentsline {table}{\numberline {4.2}{\ignorespaces Best parameters from PSO (illustrative).}}{20}{table.caption.59}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {6.1}{\ignorespaces Example PN budget and dominant mitigation levers}}{28}{table.caption.73}%
-\contentsline {table}{\numberline {6.2}{\ignorespaces EM/parasitic summary and qualitative phase-noise effects}}{28}{table.caption.75}%
+\contentsline {table}{\numberline {6.1}{\ignorespaces Example PN budget and dominant mitigation levers}}{30}{table.caption.78}%
+\contentsline {table}{\numberline {6.2}{\ignorespaces EM/parasitic summary and qualitative phase-noise effects}}{30}{table.caption.80}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {7.1}{\ignorespaces Example multi-objective weights for meta-heuristic cost}}{32}{table.caption.81}%
-\contentsline {table}{\numberline {7.2}{\ignorespaces Example quantitative targets derived from requirements}}{32}{table.caption.83}%
+\contentsline {table}{\numberline {7.1}{\ignorespaces Example multi-objective weights for meta-heuristic cost}}{34}{table.caption.86}%
+\contentsline {table}{\numberline {7.2}{\ignorespaces Example quantitative targets derived from requirements}}{34}{table.caption.88}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {8.1}{\ignorespaces Illustrative PLL design parameters}}{36}{table.caption.97}%
+\contentsline {table}{\numberline {8.1}{\ignorespaces Illustrative PLL design parameters}}{38}{table.caption.102}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {9.1}{\ignorespaces Comparison of theory and simulated metrics}}{40}{table.caption.107}%
+\contentsline {table}{\numberline {9.1}{\ignorespaces Comparison of theory and simulated metrics}}{42}{table.caption.112}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {10.1}{\ignorespaces Case study targets}}{41}{table.caption.108}%
-\contentsline {table}{\numberline {10.2}{\ignorespaces Comparison of theoretical sizing and simulated metrics}}{43}{table.caption.115}%
-\addvspace {10\p@ }
+\contentsline {table}{\numberline {10.1}{\ignorespaces Case study targets}}{43}{table.caption.113}%
+\contentsline {table}{\numberline {10.2}{\ignorespaces Comparison of theoretical sizing and simulated metrics}}{45}{table.caption.120}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

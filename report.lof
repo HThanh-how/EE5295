@@ -13,34 +13,34 @@
 \contentsline {figure}{\numberline {4.3}{\ignorespaces Three-stage ring VCO with feedback loop}}{17}{figure.caption.42}%
 \contentsline {figure}{\numberline {4.4}{\ignorespaces Ring VCO: measured f--$V_{ctrl}$ from CSV (ngspice run)}}{18}{figure.caption.48}%
 \contentsline {figure}{\numberline {4.5}{\ignorespaces Ring VCO: phase noise ước lượng từ transient}}{19}{figure.caption.53}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces PSO convergence history (objective vs. iteration).}}{20}{figure.caption.58}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Example $f(V_{ctrl})$ and local linear fit around $V_{mid}$}}{23}{figure.caption.60}%
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Complementary/cross-coupled LC VCO core with varactor tuning}}{23}{figure.caption.61}%
-\contentsline {figure}{\numberline {5.3}{\ignorespaces LC VCO: measured f--$V_{ctrl}$ from CSV (ngspice run)}}{25}{figure.caption.67}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Example $f(V_{ctrl})$ and local linear fit around $V_{mid}$}}{25}{figure.caption.65}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Complementary/cross-coupled LC VCO core with varactor tuning}}{25}{figure.caption.66}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces LC VCO: measured f--$V_{ctrl}$ from CSV (ngspice run)}}{27}{figure.caption.72}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {6.1}{\ignorespaces Illustrative phase-noise masks for LC and Ring VCO}}{27}{figure.caption.71}%
-\contentsline {figure}{\numberline {6.2}{\ignorespaces Illustrative RMS jitter vs integration band for a given mask}}{27}{figure.caption.72}%
-\contentsline {figure}{\numberline {6.3}{\ignorespaces Illustrative inductor quality factor vs. frequency}}{28}{figure.caption.74}%
-\contentsline {figure}{\numberline {6.4}{\ignorespaces Qualitative ISF: higher-$Q$ tanks yield smoother, smaller sensitivity}}{29}{figure.caption.76}%
-\contentsline {figure}{\numberline {6.5}{\ignorespaces Illustrative frequency sensitivity vs. supply ripple amplitude}}{29}{figure.caption.77}%
-\contentsline {figure}{\numberline {6.6}{\ignorespaces Example zero-crossing jitter histogram from transient-noise simulation}}{29}{figure.caption.78}%
-\contentsline {figure}{\numberline {6.7}{\ignorespaces Phase noise ước lượng từ transient cho Ring VCO}}{30}{figure.caption.79}%
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Illustrative phase-noise masks for LC and Ring VCO}}{29}{figure.caption.76}%
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Illustrative RMS jitter vs integration band for a given mask}}{29}{figure.caption.77}%
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Illustrative inductor quality factor vs. frequency}}{30}{figure.caption.79}%
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Qualitative ISF: higher-$Q$ tanks yield smoother, smaller sensitivity}}{31}{figure.caption.81}%
+\contentsline {figure}{\numberline {6.5}{\ignorespaces Illustrative frequency sensitivity vs. supply ripple amplitude}}{31}{figure.caption.82}%
+\contentsline {figure}{\numberline {6.6}{\ignorespaces Example zero-crossing jitter histogram from transient-noise simulation}}{31}{figure.caption.83}%
+\contentsline {figure}{\numberline {6.7}{\ignorespaces Phase noise ước lượng từ transient cho Ring VCO}}{32}{figure.caption.84}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {7.1}{\ignorespaces Illustrative convergence of a meta-heuristic cost function}}{31}{figure.caption.80}%
-\contentsline {figure}{\numberline {7.2}{\ignorespaces Optimization pipeline from specs to final validated design}}{32}{figure.caption.82}%
+\contentsline {figure}{\numberline {7.1}{\ignorespaces Illustrative convergence of a meta-heuristic cost function}}{33}{figure.caption.85}%
+\contentsline {figure}{\numberline {7.2}{\ignorespaces Optimization pipeline from specs to final validated design}}{34}{figure.caption.87}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {8.1}{\ignorespaces Illustrative open-loop magnitude |L(j$\omega $)| with Type-II loop}}{35}{figure.caption.95}%
-\contentsline {figure}{\numberline {8.2}{\ignorespaces PLL with PFD/CP, loop filter, VCO, and feedback divider}}{36}{figure.caption.96}%
-\contentsline {figure}{\numberline {8.3}{\ignorespaces Illustrative reference spur level vs. charge-pump ripple}}{37}{figure.caption.98}%
+\contentsline {figure}{\numberline {8.1}{\ignorespaces Illustrative open-loop magnitude |L(j$\omega $)| with Type-II loop}}{37}{figure.caption.100}%
+\contentsline {figure}{\numberline {8.2}{\ignorespaces PLL with PFD/CP, loop filter, VCO, and feedback divider}}{38}{figure.caption.101}%
+\contentsline {figure}{\numberline {8.3}{\ignorespaces Illustrative reference spur level vs. charge-pump ripple}}{39}{figure.caption.103}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {9.1}{\ignorespaces Simulated $f$–$V_{ctrl}$ characteristic}}{39}{figure.caption.104}%
-\contentsline {figure}{\numberline {9.2}{\ignorespaces Simulated phase-noise mask}}{39}{figure.caption.105}%
-\contentsline {figure}{\numberline {9.3}{\ignorespaces Transient-noise jitter histogram}}{39}{figure.caption.106}%
+\contentsline {figure}{\numberline {9.1}{\ignorespaces Simulated $f$–$V_{ctrl}$ characteristic}}{41}{figure.caption.109}%
+\contentsline {figure}{\numberline {9.2}{\ignorespaces Simulated phase-noise mask}}{41}{figure.caption.110}%
+\contentsline {figure}{\numberline {9.3}{\ignorespaces Transient-noise jitter histogram}}{41}{figure.caption.111}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {10.1}{\ignorespaces Simulated $f$--$V_{ctrl}$ characteristic}}{42}{figure.caption.110}%
-\contentsline {figure}{\numberline {10.2}{\ignorespaces Simulated phase-noise mask}}{42}{figure.caption.112}%
-\contentsline {figure}{\numberline {10.3}{\ignorespaces Transient-noise jitter histogram}}{43}{figure.caption.114}%
-\addvspace {10\p@ }
+\contentsline {figure}{\numberline {10.1}{\ignorespaces Simulated $f$--$V_{ctrl}$ characteristic}}{44}{figure.caption.115}%
+\contentsline {figure}{\numberline {10.2}{\ignorespaces Simulated phase-noise mask}}{44}{figure.caption.117}%
+\contentsline {figure}{\numberline {10.3}{\ignorespaces Transient-noise jitter histogram}}{45}{figure.caption.119}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

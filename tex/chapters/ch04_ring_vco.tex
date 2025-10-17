@@ -128,10 +128,10 @@ Use local LDO/filters, guard rings, triple-well isolation, star-grounding, and s
     Item & Target & Note \\
     \midrule
     $f$ range & $\pm 30\%$ & includes PVT margin \\
-    $K_{VCO}$ & $1$–$5$ MHz/V & linear around mid-range \\
+    $K_{VCO}$ & $1$--$5$ MHz/V & linear around mid-range \\
     PN@100 kHz & $< -95$ dBc/Hz & bias/isolation dependent \\
     Power & $< 3$ mW & at $V_{DD}$ specified \\
-    Startup & $\times 2$–$3$ & across corners \\
+    Startup & $\times 2$--$3$ & across corners \\
     \bottomrule
   \end{tabular}
   \caption{Example design targets for a ring VCO}
@@ -188,7 +188,7 @@ Transient simulation and the \(V_{ctrl}\) sweep are automated via ngspice in bat
 ngspice -b -o ring_vco.log ring_vco.cir
 \end{lstlisting}
 
-Waveforms and the f--\(V_{ctrl}\) characteristic are written to CSV under `EE5295_Sim_Scaffold/spice/results/`. Figures are exported by the notebook into `figures/`.
+Waveforms and the f--\(V_{ctrl}\) characteristic are written to CSV under \texttt{EE5295\_Sim\_Scaffold/spice/results/}. Figures are exported by the notebook into \texttt{figures/}.
 
 \subsection*{Python snippet}
 \begin{lstlisting}[language=Python]
@@ -286,17 +286,37 @@ def vco_cost(Wn, Wp, L, C):
     a, b, c = 1.0, 1.0/1e12, 1.0
     return a*power + b*(f0-f_target)**2 + c*(pn_proxy+100)**2
 \end{lstlisting}
+
+\paragraph{Convergence and best solution}
+\begin{figure}[H]
+    \centering
+    \IfFileExists{figures/pso_convergence.png}{\includegraphics{figures/pso_convergence.png}}{\fbox{PSO convergence figure not found}}
+    \caption{PSO convergence history (objective vs. iteration).}
+    \label{fig:pso_convergence}
+\end{figure}
+
 \begin{table}[H]
-  \centering
-  \begin{tabular}{lll}
-    \toprule
-    Parameter & Best value & Unit \\
-    \midrule
-    $W_n$ & 10.0 & $\mu$m \\
-    $W_p$ & 13.6 & $\mu$m \\
-    $L$ & 500 & nm \\
-    $C$ & 100.0 & fF \\
-    \bottomrule
-  \end{tabular}
+    \centering
+    \caption{Best parameters from PSO (illustrative).}
+    \label{tab:pso_best_params}
+    \begin{tabular}{lcc}
+        \toprule
+        Parameter & Value & Unit \\
+        \midrule
+        $W_n$ & 2.0 & $\mu$m \\
+        $W_p$ & 4.0 & $\mu$m \\
+        $L$   & 120 & nm \\
+        $C$   & 12  & fF \\
+        $f_0$ (proxy) & 10 & MHz \\
+        Power (proxy) & $<10$ & mW \\
+        \bottomrule
+    \end{tabular}
 \end{table}
+
+\paragraph{Ablation (why proxy PN)}
+Direct PN simulation-in-the-loop (pnoise/PN) per particle and per iteration is
+computationally prohibitive; the proxy (Leeson/Q-based) lets the swarm explore
+orders-of-magnitude more candidates and still correlates with PN ranking for
+early screening. Final candidates should be validated with full SPICE PN.
+% Removed duplicate table of best parameters to avoid redundancy
 

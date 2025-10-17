@@ -23,3 +23,28 @@ Weights $w_i$ follow Chapter~7.
 
 \section{Deliverables}
 Provide Python (GA/PSO) and Ocean scripts (optional) to reproduce evaluations and export CSV tables for Chapter~9/10 figures. Comment code for clarity.
+
+\section{PSO Convergence (Data)}
+\begin{figure}[H]
+  \centering
+  \IfFileExists{figures/pso_convergence.png}{\includegraphics{figures/pso_convergence.png}}{\fbox{PSO convergence figure not found}}
+  \caption{PSO convergence history in detail.}
+\end{figure}
+
+\section{Best Parameters (Data)}
+\begin{table}[H]
+  \centering
+  \caption{Best parameters from PSO (appendix copy).}
+  \begin{tabular}{lcc}
+    \toprule
+    Parameter & Value & Unit \\
+    \midrule
+    $W_n$ & 2.0 & $\mu$m \\
+    $W_p$ & 4.0 & $\mu$m \\
+    $L$   & 120 & nm \\
+    $C$   & 12  & fF \\
+    $f_0$ (proxy) & 10 & MHz \\
+    Power (proxy) & $<10$ & mW \\
+    \bottomrule
+  \end{tabular}
+\end{table}
