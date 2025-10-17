@@ -250,6 +250,42 @@ When Pnoise is not available, we extract the instantaneous phase using the Hilbe
 We applied a simple PSO to a behavioral VCO model (bounds on widths/length/capacitance) to minimize power and phase-noise proxy while meeting frequency targets. The best solution is summarized below.
 The cost function combines: (i) power term (smaller is better), (ii) frequency tracking term $(f_0-\,f_{target})^2$, and (iii) a phase-noise proxy (via Leeson-style $Q$ weighting). Constraints enforce technology bounds: $W_n\in[0.5,10]~\mu m$, $W_p\in[1,20]~\mu m$, $L\in[90,500]~nm$, $C\in[1,100]~fF$.
 We run PSO with inertia $w=0.9$, cognitive/social gains $c_1=c_2=2$, 30 particles, 100 iterations.
+
+\paragraph{Objective and constraints (detailed)}
+\begin{itemize}
+  \item Decision variables: $\{W_n, W_p, L, C\}$.
+  \item Hard bounds: $W_n\in[0.5,10]~\mu m$, $W_p\in[1,20]~\mu m$, $L\in[90,500]~nm$, $C\in[1,100]~fF$.
+  \item Frequency proxy: $f_0 \approx \dfrac{f_{\text{scale}}}{2\pi\sqrt{LC}}$ (để phản ánh xu hướng $f_0 \uparrow$ khi $LC \downarrow$).
+  \item Power proxy: $P \propto V_{DD}(W_n+W_p)$ (ưu tiên kích thước nhỏ hơn ~ công suất nhỏ hơn).
+  \item PN proxy: phần thưởng dựa trên Leeson với $Q$ cố định để khuyến khích $f_0/Q$ tốt hơn.
+  \item Cost tổng hợp: $J = a\,P + b\,(f_0-f_{\text{target}})^2 + c\,(\text{PN\_proxy}+100)^2$.
+  \item Hyper-parameters: $w=0.9$, $c_1=c_2=2$, swarm 30 hạt, 100 vòng lặp.
+\end{itemize}
+
+\paragraph{Code snippet (cost + bounds)}
+\begin{lstlisting}[language=Python]
+# Bounds for (Wn, Wp, L, C)
+bounds = [(0.5e-6, 10e-6), (1e-6, 20e-6), (90e-9, 500e-9), (1e-15, 100e-15)]
+
+def vco_cost(Wn, Wp, L, C):
+    # Hard constraint penalty
+    (Wn_lo, Wn_hi), (Wp_lo, Wp_hi), (L_lo, L_hi), (C_lo, C_hi) = bounds
+    if not (Wn_lo <= Wn <= Wn_hi and Wp_lo <= Wp <= Wp_hi and
+            L_lo  <= L  <= L_hi  and C_lo  <= C  <= C_hi):
+        return 1e9
+
+    # Proxies
+    f_scale = 1e9
+    f0 = f_scale/(2*np.pi*np.sqrt(L*C))
+    power = 1.8*(Wn+Wp)*1e-9
+    Q = 20.0
+    pn_proxy = -80 - 20*np.log10(Q) - 20*np.log10(max(f0,1.0)/1e6)
+
+    # Weighted objective
+    f_target = 100e6
+    a, b, c = 1.0, 1.0/1e12, 1.0
+    return a*power + b*(f0-f_target)**2 + c*(pn_proxy+100)**2
+\end{lstlisting}
 \begin{table}[H]
   \centering
   \begin{tabular}{lll}
