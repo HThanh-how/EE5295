@@ -28,23 +28,32 @@
 \sisetup{detect-all = true}
 \usepackage{listings}
 % Listings styles for consistent pretty code blocks
+% Code color theme (dark)
+\definecolor{codebg}{RGB}{36,41,46}   % dark gray background (editor-like)
+\definecolor{codefg}{RGB}{248,248,242} % near-white foreground
+\definecolor{codekw}{RGB}{97,175,239}  % cyan-ish keywords
+\definecolor{codestr}{RGB}{198,120,221} % magenta strings
+\definecolor{codecom}{RGB}{152,195,121} % green comments
+\definecolor{codenum}{RGB}{130,130,130} % line numbers
 \lstdefinestyle{codecommon}{
-  basicstyle=\ttfamily\small,
+  basicstyle=\ttfamily\small\color{codefg},
   numbers=left,
-  numberstyle=\scriptsize\color{gray},
+  numberstyle=\scriptsize\color{codenum},
   stepnumber=1,
   numbersep=8pt,
   frame=single,
-  framerule=0.4pt,
-  rulecolor=\color{black!20},
-  backgroundcolor=\color{black!02},
-  keywordstyle=\color{blue!70!black},
-  stringstyle=\color{orange!70!black},
-  commentstyle=\color{teal!60!black},
+  framerule=0.6pt,
+  rulecolor=\color{black!50},
+  backgroundcolor=\color{codebg},
+  keywordstyle=\color{codekw},
+  stringstyle=\color{codestr},
+  commentstyle=\color{codecom},
   showstringspaces=false,
   tabsize=2,
   breaklines=true,
-  keepspaces=true
+  keepspaces=true,
+  aboveskip=6pt,
+  belowskip=8pt
 }
 \lstdefinestyle{codepy}{style=codecommon, language=Python}
 \lstdefinestyle{codebash}{style=codecommon, language=bash}

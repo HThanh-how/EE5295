@@ -56,4 +56,19 @@ Vbias vb 0 DC {VCTRL}
   \caption{Key parameters for batch sweep and export.}
 \end{table}
 
+\section*{B.7 Common Commands}
+\begin{lstlisting}[style=codebash, caption={Batch ngspice, PSO, notebook, and LaTeX build}]
+# Run ngspice in batch mode and save log
+ngspice -b -o ring_vco.log ring_vco.cir
+
+# Execute PSO optimization script (writes pso_convergence.png)
+python EE5295_Sim_Scaffold/python/pso_opt.py
+
+# Execute the notebook headlessly and save outputs
+jupyter nbconvert --to notebook --execute EE5295_Sim_Scaffold/VCO_Complete_Simulation.ipynb \
+  --output EE5295_Sim_Scaffold/VCO_Complete_Simulation_executed.ipynb
+
+# Build the LaTeX report with XeLaTeX
+xelatex -interaction=nonstopmode report.tex
+\end{lstlisting}
 
