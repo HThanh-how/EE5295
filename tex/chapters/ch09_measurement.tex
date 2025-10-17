@@ -1,6 +1,37 @@
 \chapter{Measurement and Calibration}
 Set up measurements for the \(f\)–\(V_{ctrl}\) curve, phase-noise masks, temperature characterization, error compensation, and an end-to-end validation procedure.
 
+\section{Simulation Setup (Step-by-Step)}
+\subsection*{DC/AC Preparation}
+\begin{itemize}
+  \item Bias references and control node $V_{ctrl}$; verify operating point and startup margin.
+  \item Sweep $V_{ctrl}$ to map $f$–$V_{ctrl}$; export as CSV for plotting.
+\end{itemize}
+
+\subsection*{PSS/Pnoise (Phase Noise)}
+\begin{itemize}
+  \item Run PSS at expected $f_0$ with oscillator option; ensure convergence to the limit cycle.
+  \item Pnoise in jitter/time-averaged mode; enable noise folding; sweep 1 kHz–10 MHz; export $\mathcal{L}(f)$.
+\end{itemize}
+
+\subsection*{Transient Noise (Jitter)}
+\begin{itemize}
+  \item Enable device noise; simulate sufficient cycles; capture zero-crossing times; compute histogram and RMS jitter.
+  \item Cross-check by integrating PN to jitter for consistency.
+\end{itemize}
+
+\subsection*{Supply Sensitivity and Spurs}
+\begin{itemize}
+  \item Inject a small ripple on $V_{DD}$ at the reference frequency; measure $\Delta f$ and spurs at $f_0\pm f_{ref}$.
+  \item Evaluate tail filtering effectiveness and PDN planning.
+\end{itemize}
+
+\subsection*{PVT/Monte Carlo}
+\begin{itemize}
+  \item Sweep TT/SS/FF, $\pm10\%\,V_{DD}$, $-40^\circ$C–$125^\circ$C; verify tuning range, PN, and startup.
+  \item Monte Carlo mismatch on varactor/banks to assess DNL/INL of the DCO (if applicable).
+\end{itemize}
+
 \section{Simulation Results}
 \begin{figure}[H]
   \centering
@@ -36,7 +67,7 @@ Set up measurements for the \(f\)–\(V_{ctrl}\) curve, phase-noise masks, tempe
 \begin{figure}[H]
   \centering
   \begin{tikzpicture}
-    \begin{axis}[ybar, width=0.8\linewidth, height=5.2cm, xlabel={Jitter (ps)}, ylabel={Counts}, grid=y,
+    \begin{axis}[ybar, width=0.8\linewidth, height=5.2cm, xlabel={Jitter (ps)}, ylabel={Counts}, grid=both,
       symbolic x coords={-4,-3,-2,-1,0,1,2,3,4}]
       \addplot[fill=gray!60] coordinates{(-4,3) (-3,7) (-2,15) (-1,25) (0,34) (1,25) (2,15) (3,7) (4,3)};
     \end{axis}

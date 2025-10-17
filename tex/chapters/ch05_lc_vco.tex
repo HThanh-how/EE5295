@@ -135,13 +135,25 @@ Expose a buffered sine output (or square via limiter), a low-noise test node for
 \section{Illustrative Schematic}
 \begin{figure}[H]
   \centering
-  \begin{circuitikz}[european]
-    \draw (0,0) node[ground]{} to[I, l=$I_{bias}$] (0,3) -- (2,3)
-          (2,3) to[L,l=$L$] (4,3) -- (6,3)
-          (4,3) to[C,l=$C(V_{ctrl})$] (4,0)
-          (6,3) to[open,v^>=$V_{out}$] (6,0);
+  \begin{circuitikz}[american]
+    % Differential LC tank with cross-coupled pair
+    \draw (0,0) node[ground]{} to[I, l=$I_{tail}$] (0,3)
+          to[short] (-1,3) coordinate (nmid) -- (1,3) coordinate (pmid);
+    % Inductor and varactor to ground (single-ended sketch for brevity)
+    \draw (pmid) to[L,l=$L$] (3,3) -- (5,3)
+          (3,3) to[C,l=$C(V_{ctrl})$] (3,0)
+          (5,3) to[open,v^>=$V_{out}$] (5,0);
+    % Cross-coupled pair symbolic
+    \draw (-1,3) node[npn, xscale=1, rotate=180] (Q1) {}
+          (1,3) node[npn, xscale=-1, rotate=180] (Q2) {}
+          (Q1.collector) -- (pmid)
+          (Q2.collector) -- (pmid)
+          (Q1.emitter) -- (0,2.0)
+          (Q2.emitter) -- (0,2.0)
+          (Q1.base) -- (1,3) node[right] {}
+          (Q2.base) -- (-1,3) node[left] {};
   \end{circuitikz}
-  \caption{LC VCO with varactor control}
+  \caption{Complementary/cross-coupled LC VCO core with varactor tuning}
 \end{figure}
 \section{Design Guidelines}
 \begin{itemize}

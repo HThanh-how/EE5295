@@ -1,4 +1,36 @@
 \chapter{Conclusion}
-Summarize the contributions, design trade-offs, and future directions: ultra-low phase-noise VCOs, wide-range tuning, and integration with emerging technologies.
+\section{Summary of Contributions}
+This report presented a structured path from fundamentals to an implementable VCO design:
+\begin{itemize}
+  \item Consolidated theory of oscillation (Barkhausen, negative resistance, delay-based view) and LC/ring architectures with quantitative comparisons.
+  \item Phase-noise modeling via Leeson, ISF/PPV, and time-domain jitter integration, with translation between masks and RMS jitter.
+  \item Practical design methodology (specs $\to$ sizing $\to$ simulation $\to$ layout), including checklists and PVT/MC verification.
+  \item PLL integration guidelines (loop modeling, bandwidth, spur transfer) and measurement/calibration procedures.
+  \item A \SI{10}{\mega\hertz} LC VCO case study meeting targets ($\pm20\%$ range, PN@100 kHz $< -100$ dBc/Hz, $K_{VCO}\approx$ 2 \si{\mega Hz/V}).
+\end{itemize}
+
+\section{Design Trade-offs}
+Key trade-offs emerged repeatedly:
+\begin{itemize}
+  \item \textbf{Phase noise vs. power}: higher tank swing and transconductance reduce PN but raise power.
+  \item \textbf{Range vs. KVCO linearity}: wider varactor span can worsen linearity; banks and calibration mitigate.
+  \item \textbf{Area vs. spectral purity}: LC tanks consume area but achieve superior close-in PN vs. ring VCOs.
+  \item \textbf{Spur sensitivity vs. acquisition}: larger $K_{VCO}$ helps lock but increases AM-to-PM and reference spur coupling.
+\end{itemize}
+
+\section{Limitations}
+The analysis used simplified tank/varactor models and nominal EM $Q$ estimates; detailed post-layout EM extraction and substrate coupling may shift results. Close-in PN is sensitive to bias symmetry and tail filtering; small layout imbalances can alter results by 1--2 dB.
+
+\section{Future Work}
+\begin{itemize}
+  \item EM co-design of inductors and shielding to maximize $Q$ under density fill constraints.
+  \item Adaptive bias and AGC-like amplitude regulation to minimize AM-to-PM conversion.
+  \item Digital calibration with DEM/scrambling for coarse/fine banks to suppress spurs.
+  \item Exploration of injection locking and multiphase averaging for further PN improvements.
+  \item Robust PLL co-optimization (loop bandwidth, reference spur cancellation, sigma--delta profiles).
+\end{itemize}
+
+Overall, the proposed flow and case study demonstrate that a carefully sized LC VCO at \SI{10}{\mega\hertz} can meet stringent jitter and range requirements with reasonable power and area, providing a solid foundation for integration within integer-$N$ or fractional-$N$ PLLs.
+
 
 

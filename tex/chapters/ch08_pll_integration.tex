@@ -1,7 +1,7 @@
 \chapter{PLL Integration}
 Model the PLL loop, choose \(K_{VCO}\), set loop bandwidth and stability, and budget total jitter. Interactions among PFD/CP/LF and the \VCO{} control dictate spur and phase-noise transfer.
 
-\section{Integer-$N$ PLL Model}
+\section{Integer-\texorpdfstring{$N$}{N} PLL Model}
 Let the PFD gain be \(K_{\mathrm{PFD}}=\pm 1\,\mathrm{A/rad}\), charge pump current \(I_{\mathrm{CP}}\), loop filter transfer \(Z(s)\), divider ratio \(N\), and VCO gain \(K_{VCO}\,[\mathrm{Hz/V}]\). The open-loop transfer is
 \[
  L(s) = \frac{K_{\mathrm{PFD}}\,I_{\mathrm{CP}}\,Z(s)\,K_{VCO}}{s\,N}
