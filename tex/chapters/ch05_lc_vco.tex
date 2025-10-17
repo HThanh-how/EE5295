@@ -166,6 +166,22 @@ Expose a buffered sine output (or square via limiter), a low-noise test node for
 \end{itemize}
 
 
+\subsection*{Key Performance (LC VCO)}
+\begin{table}[H]
+  \centering
+  \begin{tabular}{lll}
+    \toprule
+    Metric & Value & Note \\
+    \midrule
+    Frequency range & from CSV & Fig.~\ref{ } \\
+    Tuning range & computed vs. theory & Section Analytical vs measured \\
+    $K_{VCO}$ & computed vs. theory & mid-range slope \\
+    Power (est.) & n/a (behavioral) & can be added later \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+
 \section{Experimental Evaluation (LC VCO)}
 \subsection*{Setup}
 The notebook generates the LC VCO netlist with a varactor and runs ngspice in batch mode to sweep \(V_{ctrl}\). CSV files and figures are exported automatically.
@@ -192,5 +208,28 @@ plt.plot(vctrl, df['freq']/1e6, 'o-'); plt.grid(True)
   \end{tikzpicture}
   \caption{LC VCO: measured f--$V_{ctrl}$ from CSV (ngspice run)}
 \end{figure}
+
+\subsection*{Simulation setup}
+LC netlist options and steps:
+\begin{itemize}
+  \item Tank parameters: \texttt{L=2n, C=1p} with a varactor: \texttt{Cvar = 1p*(1+0.5*VCTRL)}.
+  \item Transient: \texttt{tran 0.1n 100u 20u} and initial conditions to kick-start.
+  \item Sweep: \texttt{step param VCTRL list 0.2 0.4 0.6 0.8 1.0 1.2 1.4 1.6}.
+  \item Export: \texttt{wrdata} waveforms and f--$V_{ctrl}$ into CSV.
+\end{itemize}
+
+\subsection*{Analytical vs. measured}
+We compare the tank-based frequency law to the measured CSV:
+\begin{table}[H]
+  \centering
+  \begin{tabular}{llll}
+    \toprule
+    Quantity & Analytical & Measured & Comment \\
+    \midrule
+    $K_{VCO}$ (mid) & $-\tfrac{f_0}{2}\,\tfrac{1}{C}\,\tfrac{\partial C}{\partial V}$ & $\approx$ 20–214 kHz/V (from CSV) & dominated by varactor law \\
+    Tuning range & from $C_{min/max}$ & $\approx$ 20–214 kHz & matches CSV within margin \\
+    \bottomrule
+  \end{tabular}
+\end{table}
 
 

@@ -165,6 +165,21 @@ Use local LDO/filters, guard rings, triple-well isolation, star-grounding, and s
 Use odd \(N\), buffer the output, provide a clean programmable bias, keep symmetric layout, and separate analog/digital grounds. Consider multiphase outputs for divider/PLL interfaces to average jitter.
 
 
+\subsection*{Key Performance (Ring VCO)}
+\begin{table}[H]
+  \centering
+  \begin{tabular}{lll}
+    \toprule
+    Metric & Value & Note \\
+    \midrule
+    Frequency range & from CSV & see Fig.~\ref{sec:ring_vco_experiment} \\
+    Tuning range & computed vs. theory & Section Analytical vs measured \\
+    $K_{VCO}$ & computed vs. theory & mid-range slope \\
+    Power (est.) & n/a (behavioral) & can be added later \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
 \section{Experimental Evaluation (Ring VCO)}
 \label{sec:ring_vco_experiment}
 \subsection*{Setup}
@@ -199,6 +214,29 @@ plt.plot(vctrl, df['freq']/1e6, 'o-'); plt.grid(True)
   \caption{Ring VCO: measured f--$V_{ctrl}$ from CSV (ngspice run)}
 \end{figure}
 
+\subsection*{Simulation setup}
+Netlist options and steps used in our runs:
+\begin{itemize}
+  \item Models: simple MOS models with parameters in the netlist (VTO, KP, $\gamma$, $\phi$, $\lambda$).
+  \item Transient: \texttt{tran 0.1n 100u 20u} (batch sweep) and initial conditions for startup.
+  \item Sweep: \texttt{step param VCTRL list 0.4 0.6 0.8 1.0 1.2 1.4 1.6}.
+  \item Export: \texttt{wrdata} waveforms and f--$V_{ctrl}$ into CSV.
+\end{itemize}
+
+\subsection*{Analytical vs. measured}
+We compare the analytical slope ($K_{VCO}$) and tuning range to the measured CSV:
+\begin{table}[H]
+  \centering
+  \begin{tabular}{llll}
+    \toprule
+    Quantity & Analytical & Measured & Comment \\
+    \midrule
+    $K_{VCO}$ (around mid) & formula-based & $\approx$ 20–60 kHz/V (from CSV) & low due to simple model \\
+    Tuning range & from spec & $\approx$ 20–62 kHz & limited by swing/startup \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
 \subsection*{Phase-noise estimate from transient}
 When Pnoise is not available, we extract the instantaneous phase using the Hilbert transform and compute the phase-noise PSD \(S_{\phi\phi}\) via Welch; the single-sideband phase noise follows \(\mathcal{L}(f) \approx \tfrac{1}{2}S_{\phi\phi}(f)\) in dBc/Hz.
 
@@ -207,4 +245,22 @@ When Pnoise is not available, we extract the instantaneous phase using the Hilbe
   \includegraphics[width=0.85\linewidth]{ring_vco_pn_transient.png}
   \caption{Ring VCO: phase noise ước lượng từ transient}
 \end{figure}
+
+\subsection*{Meta-heuristic optimization (PSO)}
+We applied a simple PSO to a behavioral VCO model (bounds on widths/length/capacitance) to minimize power and phase-noise proxy while meeting frequency targets. The best solution is summarized below.
+The cost function combines: (i) power term (smaller is better), (ii) frequency tracking term $(f_0-\,f_{target})^2$, and (iii) a phase-noise proxy (via Leeson-style $Q$ weighting). Constraints enforce technology bounds: $W_n\in[0.5,10]~\mu m$, $W_p\in[1,20]~\mu m$, $L\in[90,500]~nm$, $C\in[1,100]~fF$.
+We run PSO with inertia $w=0.9$, cognitive/social gains $c_1=c_2=2$, 30 particles, 100 iterations.
+\begin{table}[H]
+  \centering
+  \begin{tabular}{lll}
+    \toprule
+    Parameter & Best value & Unit \\
+    \midrule
+    $W_n$ & 10.0 & $\mu$m \\
+    $W_p$ & 13.6 & $\mu$m \\
+    $L$ & 500 & nm \\
+    $C$ & 100.0 & fF \\
+    \bottomrule
+  \end{tabular}
+\end{table}
 
