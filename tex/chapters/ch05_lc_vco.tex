@@ -166,3 +166,31 @@ Expose a buffered sine output (or square via limiter), a low-noise test node for
 \end{itemize}
 
 
+\section{Experimental Evaluation (LC VCO)}
+\subsection*{Setup}
+The notebook generates the LC VCO netlist with a varactor and runs ngspice in batch mode to sweep \(V_{ctrl}\). CSV files and figures are exported automatically.
+
+\subsection*{Python snippet}
+\begin{lstlisting}[language=Python]
+import pandas as pd, numpy as np, matplotlib.pyplot as plt
+df = pd.read_csv('EE5295_Sim_Scaffold/spice/results/lc_vco_fv.csv',
+                 sep=r"\\s+", engine='python')
+vctrl = [0.2,0.4,0.6,0.8,1.0,1.2,1.4,1.6]
+kvco  = np.gradient(df['freq'], vctrl)
+plt.plot(vctrl, df['freq']/1e6, 'o-'); plt.grid(True)
+\end{lstlisting}
+
+\subsection*{Results}
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+    \begin{axis}[
+      width=0.95\linewidth, height=6cm,
+      xlabel={$V_{ctrl}$ (V)}, ylabel={$f$ (MHz)}, grid=both]
+      \addplot[green!60!black, thick, mark=square*] table [col sep=comma, x=Vctrl, y expr=\thisrow{freq}/1e6] {EE5295_Sim_Scaffold/spice/results/lc_vco_fv.csv};
+    \end{axis}
+  \end{tikzpicture}
+  \caption{LC VCO: measured f--$V_{ctrl}$ from CSV (ngspice run)}
+\end{figure}
+
+

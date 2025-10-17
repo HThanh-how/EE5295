@@ -1,0 +1,26 @@
+
+* LC VCO with varactor (single VCTRL)
+.param VCTRL=1.6
+.param L=2n C=1p
+VDD VDD 0 1.8
+VCTRL VCTRL 0 {VCTRL}
+L1 n1 n2 {L}
+C1 n1 n2 {C}
+Cvar n1 n2 C='1p*(1+0.5*VCTRL)'
+M1 n1 n2 VDD VDD PMOS W=10u L=180n
+M2 n2 n1 VDD VDD PMOS W=10u L=180n
+M3 n1 n2 n3 0 NMOS W=5u L=180n
+M4 n2 n1 n4 0 NMOS W=5u L=180n
+M5 n3 VCTRL 0 0 NMOS W=5u L=180n
+M6 n4 VCTRL 0 0 NMOS W=5u L=180n
+.model NMOS NMOS (VTO=0.5 KP=200u GAMMA=0.3 PHI=0.6 LAMBDA=0.05)
+.model PMOS PMOS (VTO=-0.5 KP=100u GAMMA=0.3 PHI=0.6 LAMBDA=0.05)
+.control
+set wr_singlescale
+* kick-start oscillation with initial condition
+.ic v(n1)=0.1 v(n2)=-0.1
+tran 0.1n 100u 0
+wrdata results/lc_tmp_wave.csv time v(n1)
+quit
+.endc
+.end

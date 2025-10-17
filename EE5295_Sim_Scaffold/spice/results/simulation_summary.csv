@@ -1,8 +1,14 @@
 Simulation,Parameter,Value,Unit
+Ring VCO,Frequency Range,nan-nan,MHz
+Ring VCO,Tuning Range,nan,%
+Ring VCO,KVCO,Variable,MHz/V
+LC VCO,Frequency Range,nan-nan,MHz
+LC VCO,Tuning Range,nan,%
+LC VCO,KVCO,Variable,MHz/V
 PLL,Phase Margin,38.3,°
 PLL,Loop Bandwidth,127087.9,Hz
 PLL,Stability,Stable,
-PSO,Wn,2.7,μm
-PSO,Wp,16.2,μm
+PSO,Wn,10.0,μm
+PSO,Wp,13.6,μm
 PSO,L,500,nm
 PSO,C,100.0,fF

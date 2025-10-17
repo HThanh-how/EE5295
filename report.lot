@@ -1,19 +1,29 @@
 \babel@toc {english}{}\relax 
 \addvspace {10\p@ }
+\contentsline {table}{\numberline {1.1}{\ignorespaces Target specification summary used throughout the report}}{2}{table.caption.6}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {2.1}{\ignorespaces Key symbols used in this chapter}}{6}{table.caption.9}%
+\contentsline {table}{\numberline {2.1}{\ignorespaces Key symbols used in this chapter}}{6}{table.caption.10}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {3.1}{\ignorespaces High-level comparison of VCO architectures}}{10}{table.caption.20}%
-\contentsline {table}{\numberline {3.2}{\ignorespaces Example phase-noise targets and integration bands}}{11}{table.caption.26}%
-\contentsline {table}{\numberline {3.3}{\ignorespaces Recommended startup margins across PVT corners}}{12}{table.caption.27}%
-\contentsline {table}{\numberline {3.4}{\ignorespaces Illustrative quantitative comparison at $f_0$ = 100 MHz}}{12}{table.caption.28}%
+\contentsline {table}{\numberline {3.1}{\ignorespaces High-level comparison of VCO architectures}}{10}{table.caption.21}%
+\contentsline {table}{\numberline {3.2}{\ignorespaces Example phase-noise targets and integration bands}}{11}{table.caption.27}%
+\contentsline {table}{\numberline {3.3}{\ignorespaces Recommended startup margins across PVT corners}}{12}{table.caption.28}%
+\contentsline {table}{\numberline {3.4}{\ignorespaces Illustrative quantitative comparison at $f_0$ = 100 MHz}}{12}{table.caption.29}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {4.1}{\ignorespaces Example design targets for a ring VCO}}{16}{table.caption.40}%
-\addvspace {10\p@ }
-\addvspace {10\p@ }
-\addvspace {10\p@ }
+\contentsline {table}{\numberline {4.1}{\ignorespaces Example design targets for a ring VCO}}{17}{table.caption.41}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {table}{\numberline {6.1}{\ignorespaces Example PN budget and dominant mitigation levers}}{27}{table.caption.61}%
+\contentsline {table}{\numberline {6.2}{\ignorespaces EM/parasitic summary and qualitative phase-noise effects}}{27}{table.caption.63}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {7.1}{\ignorespaces Example multi-objective weights for meta-heuristic cost}}{31}{table.caption.69}%
+\contentsline {table}{\numberline {7.2}{\ignorespaces Example quantitative targets derived from requirements}}{31}{table.caption.71}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {8.1}{\ignorespaces Illustrative PLL design parameters}}{35}{table.caption.85}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {9.1}{\ignorespaces Comparison of theory and simulated metrics}}{39}{table.caption.95}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {10.1}{\ignorespaces Case study targets}}{40}{table.caption.96}%
+\contentsline {table}{\numberline {10.2}{\ignorespaces Comparison of theoretical sizing and simulated metrics}}{42}{table.caption.103}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

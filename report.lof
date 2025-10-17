@@ -1,23 +1,45 @@
 \babel@toc {english}{}\relax 
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Startup and steady-state envelope illustration}}{5}{figure.caption.8}%
-\contentsline {figure}{\numberline {2.2}{\ignorespaces Feedback view of an oscillator as a marginally stable loop}}{7}{figure.caption.10}%
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Startup and steady-state envelope illustration}}{5}{figure.caption.9}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Feedback view of an oscillator as a marginally stable loop}}{7}{figure.caption.11}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Taxonomy of common VCO architectures}}{8}{figure.caption.11}%
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Digitally Controlled Oscillator with coarse/fine segmented banks}}{11}{figure.caption.24}%
-\contentsline {figure}{\numberline {3.3}{\ignorespaces KVCO linearization: actual curve vs local linear fit}}{11}{figure.caption.25}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Taxonomy of common VCO architectures}}{8}{figure.caption.12}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Digitally Controlled Oscillator with coarse/fine segmented banks}}{11}{figure.caption.25}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces KVCO linearization: actual curve vs local linear fit}}{11}{figure.caption.26}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Conceptual chain of current-starved inverters}}{14}{figure.caption.32}%
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Example $f(I_{ctrl})$ characteristic for a 5-stage ring}}{16}{figure.caption.38}%
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Three-stage ring VCO with feedback loop}}{17}{figure.caption.41}%
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Current-starved inverter concept with bias-controlled delay}}{14}{figure.caption.33}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Example $f(I_{ctrl})$ characteristic for a 5-stage ring}}{16}{figure.caption.39}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Three-stage ring VCO with feedback loop}}{17}{figure.caption.42}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Ring VCO: measured f--$V_{ctrl}$ from CSV (ngspice run)}}{18}{figure.caption.46}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Ring VCO: phase noise ước lượng từ transient}}{19}{figure.caption.48}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Example $f(V_{ctrl})$ and local linear fit around $V_{mid}$}}{21}{figure.caption.46}%
-\contentsline {figure}{\numberline {5.2}{\ignorespaces LC VCO with varactor control}}{21}{figure.caption.47}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Example $f(V_{ctrl})$ and local linear fit around $V_{mid}$}}{23}{figure.caption.53}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Complementary/cross-coupled LC VCO core with varactor tuning}}{23}{figure.caption.54}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces LC VCO: measured f--$V_{ctrl}$ from CSV (ngspice run)}}{24}{figure.caption.58}%
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Illustrative phase-noise masks for LC and Ring VCO}}{26}{figure.caption.59}%
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Illustrative RMS jitter vs integration band for a given mask}}{26}{figure.caption.60}%
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Illustrative inductor quality factor vs. frequency}}{27}{figure.caption.62}%
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Qualitative ISF: higher-$Q$ tanks yield smoother, smaller sensitivity}}{28}{figure.caption.64}%
+\contentsline {figure}{\numberline {6.5}{\ignorespaces Illustrative frequency sensitivity vs. supply ripple amplitude}}{28}{figure.caption.65}%
+\contentsline {figure}{\numberline {6.6}{\ignorespaces Example zero-crossing jitter histogram from transient-noise simulation}}{28}{figure.caption.66}%
+\contentsline {figure}{\numberline {6.7}{\ignorespaces Phase noise ước lượng từ transient cho Ring VCO}}{29}{figure.caption.67}%
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {7.1}{\ignorespaces Illustrative convergence of a meta-heuristic cost function}}{30}{figure.caption.68}%
+\contentsline {figure}{\numberline {7.2}{\ignorespaces Optimization pipeline from specs to final validated design}}{31}{figure.caption.70}%
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {8.1}{\ignorespaces Illustrative open-loop magnitude |L(j$\omega $)| with Type-II loop}}{34}{figure.caption.83}%
+\contentsline {figure}{\numberline {8.2}{\ignorespaces PLL with PFD/CP, loop filter, VCO, and feedback divider}}{35}{figure.caption.84}%
+\contentsline {figure}{\numberline {8.3}{\ignorespaces Illustrative reference spur level vs. charge-pump ripple}}{36}{figure.caption.86}%
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {9.1}{\ignorespaces Simulated $f$–$V_{ctrl}$ characteristic}}{38}{figure.caption.92}%
+\contentsline {figure}{\numberline {9.2}{\ignorespaces Simulated phase-noise mask}}{38}{figure.caption.93}%
+\contentsline {figure}{\numberline {9.3}{\ignorespaces Transient-noise jitter histogram}}{38}{figure.caption.94}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {10.1}{\ignorespaces Simulated $f$--$V_{ctrl}$ characteristic}}{41}{figure.caption.98}%
+\contentsline {figure}{\numberline {10.2}{\ignorespaces Simulated phase-noise mask}}{41}{figure.caption.100}%
+\contentsline {figure}{\numberline {10.3}{\ignorespaces Transient-noise jitter histogram}}{42}{figure.caption.102}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
