@@ -1,0 +1,43 @@
+
+* LC VCO with varactor tuning
+.param VCTRL=0.8
+.param L=2n C=1p
+
+VDD VDD 0 1.8
+VCTRL VCTRL 0 {VCTRL}
+
+L1 n1 n2 {L}
+C1 n1 n2 {C}
+Cvar n1 n2 C='1p*(1+0.5*VCTRL)'
+
+M1 n1 n2 VDD VDD PMOS W=10u L=180n
+M2 n2 n1 VDD VDD PMOS W=10u L=180n
+M3 n1 n2 n3 0 NMOS W=5u L=180n
+M4 n2 n1 n4 0 NMOS W=5u L=180n
+M5 n3 VCTRL 0 0 NMOS W=5u L=180n
+M6 n4 VCTRL 0 0 NMOS W=5u L=180n
+
+.model NMOS NMOS (VTO=0.5 KP=200u GAMMA=0.3 PHI=0.6 LAMBDA=0.05)
+.model PMOS PMOS (VTO=-0.5 KP=100u GAMMA=0.3 PHI=0.6 LAMBDA=0.05)
+
+.control
+set wr_singlescale
+tran 0.1n 100u 20u uic
+meas tran t1 when v(n1) cross=0.9 rise=10
+meas tran t2 when v(n1) cross=0.9 rise=11
+meas tran period param='t2-t1'
+meas tran freq param='1/period'
+wrdata results/lc_vco_wave.csv time v(n1) v(n2)
+
+reset
+step param VCTRL list 0.2 0.4 0.6 0.8 1.0 1.2 1.4 1.6
+tran 0.1n 100u 20u uic
+meas tran t1 when v(n1) cross=0.9 rise=10
+meas tran t2 when v(n1) cross=0.9 rise=11
+meas tran period param='t2-t1'
+meas tran freq param='1/period'
+wrdata results/lc_vco_fv.csv freq
+quit
+.endc
+
+.end

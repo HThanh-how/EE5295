@@ -1,0 +1,8 @@
+Simulation,Parameter,Value,Unit
+PLL,Phase Margin,38.3,°
+PLL,Loop Bandwidth,127087.9,Hz
+PLL,Stability,Stable,
+PSO,Wn,2.7,μm
+PSO,Wp,16.2,μm
+PSO,L,500,nm
+PSO,C,100.0,fF

@@ -1,0 +1,49 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{vietnam}
+\usepackage{graphicx}
+\usepackage{siunitx}
+\usepackage{amsmath, amssymb}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage{subcaption}
+
+\title{Tiểu luận Phân tích mạch --- EE5295}
+\author{Nhóm: \texttt{<điền tên>}}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Tổng quan}
+\textbf{Chủ đề:} \emph{<điền tên mạch: LDO / SAR ADC / VCO / BGR / OpAmp>}\\
+Chức năng, ứng dụng, thông số chính (tóm tắt).
+
+\section{Cơ sở lý thuyết và mô hình}
+\subsection{Sơ đồ mạch và nguyên lý}
+Mô tả sơ đồ và khối chức năng; đưa phương trình cốt lõi.
+
+\subsection{Phân tích tham số và kỳ vọng}
+Tính toán theo lý thuyết: ví dụ với BGR, $V_\text{ref} = V_{BE} + k\Delta V_{BE}$; với VCO, $f(V_\text{ctrl})$; với LDO, line/load regulation, PSRR,...
+
+\section{Kết quả mô phỏng}
+\subsection{Thiết lập mô phỏng}
+Mô tả công cụ (NGSpice v..., Python), netlist/param, sơ đồ sweep.
+
+\subsection{Kết quả và so sánh với lý thuyết}
+Chèn hình/ bảng từ \texttt{data/results.csv}. Ví dụ hình bode RC:
+\begin{figure}[h]
+\centering
+\includegraphics[width=.8\linewidth]{rc_bode_placeholder.pdf}
+\caption{Ví dụ minh hoạ bóc tách dữ liệu từ \texttt{rc\_ac.csv}.}
+\end{figure}
+
+\subsection{Đánh giá/nhận xét}
+Nêu ưu/nhược điểm, sai lệch, giới hạn mô hình.
+
+\section{Điểm cộng: Kết hợp AI (tuỳ chọn)}
+Trình bày cách dùng meta-heuristic (ví dụ SA/PSO/SOA) để tối ưu R,C,... nhằm đạt mục tiêu (PSRR, TC, v.v.).
+
+\bibliographystyle{ieeetr}
+\bibliography{refs}
+\end{document}

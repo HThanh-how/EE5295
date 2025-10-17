@@ -1,0 +1,36 @@
+
+* Ring VCO Phase Noise Analysis
+.param VCTRL=0.8
+.param WN=2u WP=4u L=180n
+
+VDD VDD 0 1.8
+VCTRL VCTRL 0 {VCTRL}
+
+M1 n1 n3 VDD VDD PMOS W={WP} L={L}
+M2 n1 n3 n2 0 NMOS W={WN} L={L}
+M3 n2 VCTRL 0 0 NMOS W={WN} L={L}
+
+M4 n3 n1 VDD VDD PMOS W={WP} L={L}
+M5 n3 n1 n4 0 NMOS W={WN} L={L}
+M6 n4 VCTRL 0 0 NMOS W={WN} L={L}
+
+M7 n5 n3 VDD VDD PMOS W={WP} L={L}
+M8 n5 n3 n6 0 NMOS W={WN} L={L}
+M9 n6 VCTRL 0 0 NMOS W={WN} L={L}
+
+C1 n1 0 10f
+C2 n3 0 10f
+C3 n5 0 10f
+
+.model NMOS NMOS (VTO=0.5 KP=200u GAMMA=0.3 PHI=0.6 LAMBDA=0.05)
+.model PMOS PMOS (VTO=-0.5 KP=100u GAMMA=0.3 PHI=0.6 LAMBDA=0.05)
+
+.control
+set wr_singlescale
+pss fund=100Meg
+pnoise (n1) 0 1k 10Meg 100
+wrdata results/ring_vco_pn.csv freq vdb(n1)
+quit
+.endc
+
+.end

@@ -1,0 +1,22 @@
+* ---------- example_rc_lp.cir ----------
+.title RC low-pass example
+
+.param R1=1k
+.param C1=1n
+.param VDD=1.8
+
+* Source for completeness (not strictly used in AC)
+VDD vdd 0 {VDD}
+VIN in 0 ac 1
+R1 in out {R1}
+C1 out 0 {C1}
+
+* AC analysis
+.ac dec 100 10 100Meg
+.print ac format=csv v(out) > rc_ac.csv
+
+* Measures
+.measure ac GAIN_1KHZ  find 20*log10(mag(v(out))) at=1k
+.measure ac F3DB       param=1/(2*pi*{R1}*{C1})
+
+.end

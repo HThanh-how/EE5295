@@ -1,0 +1,4 @@
+title,VDD,VCTRL,GAIN,R0,ALPHA,C0,VBIAS,THRESH,TSTOP,TSTEP,TSTART,results_tran_csv
+VCO_0.5V,1.2,0.5,3,5k,1,100f,0.6,0.5,20u,1n,5u,vco_05.csv
+VCO_0.6V,1.2,0.6,3,5k,1,100f,0.6,0.5,20u,1n,5u,vco_06.csv
+VCO_0.7V,1.2,0.7,3,5k,1,100f,0.6,0.5,20u,1n,5u,vco_07.csv

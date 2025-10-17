@@ -1,0 +1,28 @@
+* ---------- TEMPLATE_netlist.cir.j2 ----------
+* Dùng Jinja2 để thay {{ tham_so }} từ CSV.
+* NGSpice chạy batch: ngspice -b generated_xxx.cir -o run.log
+
+.title {{ title | default("EE5295 Simulation") }}
+
+* ===== Tham số (đặt tên trùng cột CSV) =====
+{% for k, v in params.items() %}.param {{k}}={{v}}
+{% endfor %}
+
+* ===== NGUỒN VÀ KÍCH THÍCH (ví dụ, chỉnh cho mạch của bạn) =====
+VDD vdd 0 {{ VDD | default(1.8) }}
+
+* ===== MẠCH CHÍNH — THAY BẰNG NETLIST CỦA BẠN =====
+* Ví dụ mạch RC low-pass để minh họa:
+R1 in out {{ R1 | default(1k) }}
+C1 out 0  {{ C1 | default(1n) }}
+VIN in 0 ac 1
+
+* ===== LỆNH MÔ PHỎNG (ví dụ) =====
+.ac dec 100 10 100Meg
+.print ac format=csv v(out) > {{ results_ac_csv | default("ac.csv") }}
+
+* Trích số đo: gain tại f0, f-3dB ~ 1/(2πR1C1)
+.measure ac GAIN_DB param=20*log10(mag(v(out)))
+.measure ac F3DB  param=1/(2*pi*{{R1 | default(1k)}}*{{C1 | default(1n)}})
+
+.end

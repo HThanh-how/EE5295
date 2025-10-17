@@ -1,0 +1,4 @@
+title,VDD,R1,C1,results_ac_csv
+RC run 1,1.8,1k,1n,ac_run_1.csv
+RC run 2,1.8,2k,1n,ac_run_2.csv
+RC run 3,3.3,1k,0.5n,ac_run_3.csv

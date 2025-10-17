@@ -1,0 +1,45 @@
+* ---------- example_bgr_skeleton.cir ----------
+.title Bandgap Reference (skeleton)
+
+* This is a **skeleton** to plug in your device models/opamp.
+* Idea: Vref = Vbe(Q1) + (R2/R1)*ΔVbe(Q2,Q1), sweep .temp to get TC.
+
+.param VDD=1.8 N=8 R1=5k R2=60k R3=100k AOP=1e6
+VDD vdd 0 {VDD}
+
+* Simple BJT model (adjust to your PDK or use more realistic params)
+.model QNPN NPN (IS=1e-15 BF=100 VAF=100)
+
+* Two BJTs with area ratio N (emitter area scales with 'area')
+Q1 vref vb 0 QNPN area=1
+Q2 nx   vb 0 QNPN area={N}
+
+* Sense resistor to generate ΔVbe across R1 (between nx and 0)
+R1 nx 0 {R1}
+
+* Opamp (very large gain) to force vb such that loop closes:
+* Eop: V(out) = AOP*(V(+) - V(-))
+EOP vref 0 VALUE = {AOP*(V(nx) - V(vref))}
+
+* Output buffer (optional small resistor)
+ROUT vref out 1
+
+* Bandgap synthesis resistor to scale PTAT (user tune R2)
+* (Here used as a place-holder load to probe V(out).)
+R2 out 0 {R2}
+
+* Startup aid (weak) — user should refine:
+R3 vdd vb {R3}
+
+* Analyses
+.op
+.temp -40 25 125
+*.dc VDD 1.5 2.0 0.05  ; uncomment to check line regulation
+
+* Measures
+* NOTE: You may need to refine node selections depending on your final loop.
+.measure op VREF  FIND V(out)
+.measure op I_R1  FIND I(R1)
+.measure op DVBE  PARAM = (V(vb)-V(nx))   ; crude ΔVbe proxy (edit as needed)
+
+.end

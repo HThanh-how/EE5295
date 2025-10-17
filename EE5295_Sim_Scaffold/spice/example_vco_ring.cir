@@ -1,0 +1,31 @@
+* ---------- example_vco_ring.cir ----------
+* Self-contained demo using the same STAGE as in the template
+
+.param VDD=1.2 VCTRL=0.6 GAIN=3 R0=5k ALPHA=1 C0=100f VBIAS=0.6 THRESH=0.5
+.param TSTOP=20u TSTEP=1n TSTART=5u
+
+VDD vdd 0 {VDD}
+VCTRL ctrl 0 {VCTRL}
+
+.func R_eff(x) { R0/(1+ALPHA*(x - VBIAS)) }
+.func R_eff_limited(x) { limit(R_eff(x), 100, 1e9) }
+
+.subckt STAGE IN OUTRC CTRL VDD
+BOUT OUT 0 V = V(VDD)*tanh(GAIN*(V(IN)/V(VDD)-0.5))*-1 + 0.5*V(VDD)
+GRC OUTRC 0 value = ( V(OUT) - V(OUTRC) ) / R_eff_limited( V(CTRL) )
+CLOAD OUTRC 0 {C0}
+.ends STAGE
+
+X1 n1 n2 ctrl vdd STAGE
+X2 n2 n3 ctrl vdd STAGE
+X3 n3 n1 ctrl vdd STAGE
+
+.save v(n1) v(n2) v(n3) v(ctrl) v(vdd)
+
+.tran {TSTEP} {TSTOP} {TSTART}
+.measure tran PER TRIG v(n1) VAL={THRESH} RISE=10 TARG v(n1) VAL={THRESH} RISE=11
+.measure tran FREQ param = 1/PER
+
+.print tran format=csv v(n1) v(n2) v(n3) > vco_tran.csv
+
+.end
