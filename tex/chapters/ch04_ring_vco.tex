@@ -184,14 +184,14 @@ Use odd \(N\), buffer the output, provide a clean programmable bias, keep symmet
 \label{sec:ring_vco_experiment}
 \subsection*{Setup}
 Transient simulation and the \(V_{ctrl}\) sweep are automated via ngspice in batch mode from a Python notebook. A 3-stage current-starved netlist is programmatically generated and executed with:
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}[style=codebash, caption={Batch run ngspice for the ring VCO}]
 ngspice -b -o ring_vco.log ring_vco.cir
 \end{lstlisting}
 
 Waveforms and the f--\(V_{ctrl}\) characteristic are written to CSV under \texttt{EE5295\_Sim\_Scaffold/spice/results/}. Figures are exported by the notebook into \texttt{figures/}.
 
 \subsection*{Python snippet}
-\begin{lstlisting}[language=Python]
+\begin{lstlisting}[style=codepy, caption={Load CSV and compute $K_{VCO}$ in Python}]
 import pandas as pd, numpy as np, matplotlib.pyplot as plt
 df = pd.read_csv('EE5295_Sim_Scaffold/spice/results/ring_vco_fv.csv',
                  sep=r"\\s+", engine='python')
@@ -263,7 +263,7 @@ We run PSO with inertia $w=0.9$, cognitive/social gains $c_1=c_2=2$, 30 particle
 \end{itemize}
 
 \paragraph{Code snippet (cost + bounds)}
-\begin{lstlisting}[language=Python]
+\begin{lstlisting}[style=codepy, caption={PSO objective with bounds (Python)}]
 # Bounds for (Wn, Wp, L, C)
 bounds = [(0.5e-6, 10e-6), (1e-6, 20e-6), (90e-9, 500e-9), (1e-15, 100e-15)]
 

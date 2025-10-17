@@ -27,6 +27,35 @@
 \setmonofont{Latin Modern Mono}
 \sisetup{detect-all = true}
 \usepackage{listings}
+% Listings styles for consistent pretty code blocks
+\lstdefinestyle{codecommon}{
+  basicstyle=\ttfamily\small,
+  numbers=left,
+  numberstyle=\scriptsize\color{gray},
+  stepnumber=1,
+  numbersep=8pt,
+  frame=single,
+  framerule=0.4pt,
+  rulecolor=\color{black!20},
+  backgroundcolor=\color{black!02},
+  keywordstyle=\color{blue!70!black},
+  stringstyle=\color{orange!70!black},
+  commentstyle=\color{teal!60!black},
+  showstringspaces=false,
+  tabsize=2,
+  breaklines=true,
+  keepspaces=true
+}
+\lstdefinestyle{codepy}{style=codecommon, language=Python}
+\lstdefinestyle{codebash}{style=codecommon, language=bash}
+% Minimal SPICE language definition
+\lstdefinelanguage{SPICE}{
+  morecomment=[l]{*},
+  morecomment=[l]{;},
+  morekeywords={.param,.ic,.tran,.control,run,wrdata,.endc,dc,ac,meas,save,plot,step,let,end},
+  sensitive=false
+}
+\lstdefinestyle{codespice}{style=codecommon, language=SPICE}
 
 \newcommand{\VCO}{VCO}
 

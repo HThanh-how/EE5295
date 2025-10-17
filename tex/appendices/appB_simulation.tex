@@ -27,7 +27,7 @@ Representative transient deck settings used in sweeps:
 The optimization code is provided as \texttt{python/pso\_opt.py}. It logs best cost per iteration and writes \texttt{pso\_convergence.png} for inclusion in Chapter~4 and the appendix.
 
 \section*{B.5 Minimal Netlist Snippet}
-\begin{lstlisting}
+\begin{lstlisting}[style=codespice, caption={Transient sweep excerpt (SPICE)}]
 * transient sweep (excerpt)
 .param VCTRL=1.0
 Vbias vb 0 DC {VCTRL}
