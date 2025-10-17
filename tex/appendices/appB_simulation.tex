@@ -4,7 +4,7 @@ Tool configurations, simulation parameters, scripts, and reproducibility procedu
 \section*{B.1 Tools and Versions}
 \begin{itemize}
   \item Simulator: ngspice (batch mode), Python 3.11 with numpy/pandas/matplotlib/scipy.
-  \item Execution: Jupyter notebook `VCO_Complete_Simulation.ipynb` and Python scripts under `EE5295_Sim_Scaffold/python/`.
+  \item Execution: Jupyter notebook \texttt{VCO\_Complete\_Simulation.ipynb} and Python scripts under \texttt{EE5295\_Sim\_Scaffold/python/}.
 \end{itemize}
 
 \section*{B.2 Netlist Options}
@@ -18,13 +18,13 @@ Representative transient deck settings used in sweeps:
 
 \section*{B.3 Reproducibility}
 \begin{enumerate}
-  \item Run the notebook cells guarded by `HAVE_NGSPICE` to generate waveforms and `ring_vco_fv.csv`.
+  \item Run the notebook cells guarded by \texttt{HAVE\_NGSPICE} to generate waveforms and \texttt{ring\_vco\_fv.csv}.
   \item For robustness, frequency is computed in Python via FFT on the final window of the transient response.
-  \item Figures are saved to `figures/` and imported by LaTeX directly.
+  \item Figures are saved to \texttt{figures/} and imported by LaTeX directly.
 \end{enumerate}
 
 \section*{B.4 PSO Script}
-The optimization code is provided as `python/pso_opt.py`. It logs best cost per iteration and writes `pso_convergence.png` for inclusion in Chapter~4 and the appendix.
+The optimization code is provided as \texttt{python/pso\_opt.py}. It logs best cost per iteration and writes \texttt{pso\_convergence.png} for inclusion in Chapter~4 and the appendix.
 
 \section*{B.5 Minimal Netlist Snippet}
 \begin{lstlisting}
